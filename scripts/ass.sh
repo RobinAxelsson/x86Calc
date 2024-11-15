@@ -1,11 +1,23 @@
 #!/bin/bash
 
 # assemble and nasm x86 link input
+# alias ass="./scripts/ass.sh"
 
-# fileName="${1%%.*}" # remove .s extension
 
-nasm -f elf64 "./src/fibo.s" -o "./output/fibo.o"
+# fileName=$1
+filename="fibo"
 
-ld "./output/fibo.o" -o "./output/fibo"
+asmfile="./src/"$filename".s"
+objfile="./output/"$filename".o"
+binfile="./output/"$filename
 
-[ "$2" == "-g" ] && gdb -q "./output/fibo" || "./output/fibo"
+mkdir -p output
+
+#assemble
+nasm -f elf64 $asmfile -o $objfile
+
+#link
+ld $objfile -o $binfile
+
+#debug
+[ "$1" == "-g" ] && gdb -q "$binfile" || $binfile

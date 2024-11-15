@@ -1,12 +1,24 @@
 #!/bin/bash
 
+# alias dass="./scripts/dass.sh"
+
+#filename=$1
+filename=fibo
+
+binfile=./output/$filename
+outfile=./output/$filename
+
+mkdir -p output
+
 if [[ $1 == '-v'|| $1 == '--verbose' ]]; then
-    objdump -x -D -a --full-contents --source --syms -M intel -C -f -g ./output/fibo
+    objdump -x -D -a --full-contents --source --syms -M intel -C -f -g $binfile > $outfile"-dump-v.s"
 
 else
-    objdump -M intel -d --full-contents -g ./output/fibo
+    #objdump -M intel -d --full-contents -g $binfile > $outfile"-dump.s"
+    objdump -M intel -d $binfile > $outfile"-dump.s"
 fi
 
+# --no-show-raw-insn no hex
 # -x all headers
 # -D --disassemble-al
 # -s --full-contents
