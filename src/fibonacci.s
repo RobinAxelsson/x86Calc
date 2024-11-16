@@ -3,60 +3,72 @@ global  _start
 section .text
 
 _start:
-    xor r8, r8          ; zero initialize
-    xor r9, r9
-    mov rcx, 10         ; times to loop
-    inc r9              ; r9 = 1
-    call _l
+    xor rax, rax
+    xor rbx, rbx
+    inc rbx
+    add rax, rbx
 
-    mov rax, 60         ; syscall number for exit
-    mov rdi, 0          ; status 0
-    syscall
+loopFib:
+    add rax, rbx    ; get the next number
+    xchg rax, rbx   ; swap values
+    cmp rbx, 10     ; rbx - 10 sets flags
+    js loopFib      ; jump if smaller
 
-_l:
-    ; add the values
-    mov rax, r9
-    add rax, r8
+; _start:
+;     xor r8, r8          ; zero initialize
+;     xor r9, r9
+;     mov rcx, 10         ; times to loop
+;     inc r9              ; r9 = 1
+;     call _l
 
-    call _print
+;     mov rax, 60         ; syscall number for exit
+;     mov rdi, 0          ; status 0
+;     syscall
 
-    ; set up next values
-    mov r8, r9
-    mov r9, rax
+; _l:
+;     ; add the values
+;     mov rax, r9
+;     add rax, r8
 
-    dec rcx
-    cmp rcx, 0
+;     call _print
 
-    jne _l
-    ret
+;     ; set up next values
+;     mov r8, r9
+;     mov r9, rax
 
-_print:
-    mov rbx, 10
-    div rbx             ; dividend in rax, reminder in rdx
+;     dec rcx
+;     cmp rcx, 0
 
-    mov r10, rax            ; store dividend 
+;     jne _l
+;     ret
 
-    mov rax, rdx        ; get the reminder
+; _print:
+;     mov rbx, 10
+;     div rbx             ; dividend in rax, reminder in rdx
 
-    add rax, 48         ; to match the ascii table
+;     mov r10, rax            ; store dividend 
 
-    shl rax, 8
-    add rax, 32         ; add a space
+;     mov rax, rdx        ; get the reminder
+
+;     add rax, 48         ; to match the ascii table
+
+;     shl rax, 8
+;     add rax, 32         ; add a space
     
-    push rax            ; rsp -> rax
+;     push rax            ; rsp -> rax
 
-    mov rax, 1          ; syscall number for write
-    mov rbx, 1          ; file descriptor (stdout)
-    mov rsi, rsp        ; rsp -> rax
-    mov rdx, 2          ; length of the buffer
+;     mov rax, 1          ; syscall number for write
+;     mov rbx, 1          ; file descriptor (stdout)
+;     mov rsi, rsp        ; rsp -> rax
+;     mov rdx, 2          ; length of the buffer
     
-    push rcx            ; rcx changes after syscall
+;     push rcx            ; rcx changes after syscall
 
-    syscall
+;     syscall
 
-    pop rcx
-    pop rax
+;     pop rcx
+;     pop rax
 
-    mov rax, r10
+;     mov rax, r10
 
-    ret
+;     ret
