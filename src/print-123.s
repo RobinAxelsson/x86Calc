@@ -5,68 +5,38 @@ section .data
 section .text
 
 _start: 
-    mov     rax, 123     ; add dividend as input to function
-
-    call push_chars
-
-    call print_stack
-    
-    mov     rax, 60     ; exit sys call
-    mov     rdi, 0
-    syscall
+    mov     rax, 123    ; add dividend as input to function
+    push    0           ; adding a null byte to know when to stop printing
 
 push_chars:
-    pop     rbp
+    xor     rdx, rdx    ; clear rdx, why?
+    mov     rcx, 10     ; rax = dividend, rcx = divisior
+    idiv    rcx         ; rax = quotient, rdx = reminder
 
-    xor     rdx, rdx
-    mov     rcx, 10
-    idiv    rcx
-    add     rdx, 48
+    cmp     rdx, 0      ; nothing more to print
+    je print
+
+    add     rdx, 48     ; format to ASCII
     push    rdx
-
-    xor     rdx, rdx
-    mov     rcx, 10
-    idiv    rcx
-    add     rdx, 48
-    push    rdx
-
-    xor     rdx, rdx
-    mov     rcx, 10
-    idiv    rcx
-    add     rdx, 48
-    push    rdx
-
-    ; idiv    10
-    ; add     rdx, 48
-    ; push    rdx
-
-    push    rbp
-    ret
-
-print_stack:
-    pop rbp
-
-    mov     rax, 1
-    mov     rdi, 1
-    mov     rsi, rsp
-    mov     rdx, 1
-    syscall
-
-    pop     rax
-
-    mov     rax, 1
-    mov     rdi, 1
-    mov     rsi, rsp
-    mov     rdx, 1
-    syscall
-
-    pop     rax
     
-    mov     rax, 1
+    jmp push_chars
+
+print:
+    mov     rax, [rsp]  ; check if stack has ascii number
+    cmp     rax, 0
+    jle exit
+
+    mov     rax, 1      ; print stack ascii number
     mov     rdi, 1
     mov     rsi, rsp
     mov     rdx, 1
     syscall
-    
-    push rbp
-    ret
+
+    pop     rax         ; look for next number
+
+    jmp print
+
+exit:
+    mov     rax, 60
+    mov     rdi, 0
+    syscall
