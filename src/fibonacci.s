@@ -3,72 +3,58 @@ global  _start
 section .text
 
 _start:
-    xor rax, rax
-    xor rbx, rbx
-    inc rbx
-    add rax, rbx
+    push    0x30
+    mov     rdi, rsp
+    mov     rsi, 1
+    call print_str        ; print "0"
+    pop     rax
+
+    call print_newline
+
+    mov     r12, 0        ; r12, callee saved register, will hold our trailing fibonacci number
+    mov     r13, 1        ; r13, callee saved register, will hold the higher fibonacci number
+    mov     rcx, 5        ; loop counter
 
 loopFib:
-    add rax, rbx    ; get the next number
-    xchg rax, rbx   ; swap values
-    cmp rbx, 10     ; rbx - 10 sets flags
-    js loopFib      ; jump if smaller
+    push    rcx
 
-; _start:
-;     xor r8, r8          ; zero initialize
-;     xor r9, r9
-;     mov rcx, 10         ; times to loop
-;     inc r9              ; r9 = 1
-;     call _l
+    call print_fib
+    call print_newline
 
-;     mov rax, 60         ; syscall number for exit
-;     mov rdi, 0          ; status 0
-;     syscall
+    add     r12, r13
+    xchg    r12, r13
 
-; _l:
-;     ; add the values
-;     mov rax, r9
-;     add rax, r8
+    pop     rcx
+    loop loopFib
 
-;     call _print
+exit:
+    mov     rax, 60
+    mov     rdi, 0
+    syscall
 
-;     ; set up next values
-;     mov r8, r9
-;     mov r9, rax
+print_fib:
+    mov     rbx, r13
+    add     rbx, 0x30     ; convert number to ASCII equivalent
+    push    rbx
+    mov     rdi, rsp
+    mov     rsi, 1
+    call print_str
+    pop     rax
+    ret
 
-;     dec rcx
-;     cmp rcx, 0
+print_newline:
+    push 0xa
+    mov     rdi, rsp
+    mov     rsi, 1
+    call print_str
+    pop     rax
+    ret
 
-;     jne _l
-;     ret
 
-; _print:
-;     mov rbx, 10
-;     div rbx             ; dividend in rax, reminder in rdx
-
-;     mov r10, rax            ; store dividend 
-
-;     mov rax, rdx        ; get the reminder
-
-;     add rax, 48         ; to match the ascii table
-
-;     shl rax, 8
-;     add rax, 32         ; add a space
-    
-;     push rax            ; rsp -> rax
-
-;     mov rax, 1          ; syscall number for write
-;     mov rbx, 1          ; file descriptor (stdout)
-;     mov rsi, rsp        ; rsp -> rax
-;     mov rdx, 2          ; length of the buffer
-    
-;     push rcx            ; rcx changes after syscall
-
-;     syscall
-
-;     pop rcx
-;     pop rax
-
-;     mov rax, r10
-
-;     ret
+print_str:             ; rdi - pointer to ascii bytes, rsi - i bytes to print
+    mov     rdx, rsi
+    mov     rsi, rdi
+    mov     rdi, 1
+    mov     rax, 1
+    syscall
+    ret
