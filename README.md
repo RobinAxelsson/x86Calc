@@ -15,6 +15,7 @@ OS: Linux Debian (I use Kali)
 
 - https://treeniks.github.io/x86-64-simplified/
 
+- [ELF x86-64-ABI psABI](https://gitlab.com/x86-psABIs/x86-64-ABI)
 
 - linux syscalls: cat /usr/include/x86_64-linux-gnu/asm/unistd_64.h
 

@@ -1,0 +1,14 @@
+Mnemonic,Description,Operands,Notes
+add,Add,destination - source,Adds source to destination and stores the result in destination.
+adc,Add with carry,destination - source,Adds source and carry flag to destination.
+sub,Subtract,destination - source,Subtracts source from destination and stores the result in destination.
+sbb,Subtract with borrow,destination - source,Subtracts source and the carry flag from destination.
+mul,Unsigned multiply,source,Multiplies RAX by source - result stored in RDX:RAX (higher:lower).
+imul,Signed multiply,destination - source,Signed multiplication. Can use destination - source format for immediate operands.
+div,Unsigned divide,source,Divides RDX:RAX by source - quotient in RAX - remainder in RDX. RAX/source=rax+rdx
+idiv,Signed divide,source,Signed division. Same register usage as `div`.
+inc,Increment,destination,Adds 1 to destination.
+dec,Decrement,destination,Subtracts 1 from destination.
+neg,Negate,destination,Calculates two's complement (negates value) of destination.
+cmp,Compare,destination - source,Subtracts source from destination but does not store the result - only sets flags.
+test,Test bits,destination - source,Performs a bitwise AND on destination and source - sets flags based on the result.

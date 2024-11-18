@@ -1,0 +1,18 @@
+Mnemonic,Condition,Flag
+jmp,Unconditional jump,
+je,Jump if equal,ZF=1
+jne,Jump if not equal,ZF=0
+jg,Jump if greater,ZF=0 and SF=OF
+jge,Jump if greater or equal,SF=OF
+jl,Jump if less,SF≠OF
+jle,Jump if less or equal,ZF=1 or SF≠OF
+ja,Jump if above,CF=0 and ZF=0
+jae,Jump if above or equal,CF=0
+jb,Jump if below,CF=1
+jbe,Jump if below or equal,CF=1 or ZF=1
+jo,Jump if overflow,OF=1
+jno,Jump if no overflow,OF=0
+js,Jump if sign,SF=1
+jns,Jump if no sign,SF=0
+jc,Jump if carry,CF=1
+jnc,Jump if no carry,CF=0

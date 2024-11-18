@@ -1,0 +1,10 @@
+Register,Full Name,Used For,Caller or Callee Saved?,Notes
+RAX,Accumulator,System call number,Caller,Specifies which system call to invoke and returns the result (or error code).
+RDI,Destination Index,1st argument,Caller,Holds the first argument to the system call.
+RSI,Source Index,2nd argument,Caller,Holds the second argument to the system call.
+RDX,Data,3rd argument,Caller,Holds the third argument to the system call.
+R10,-,4th argument,Caller,Holds the fourth argument to the system call (instead of RCX as in function calls).
+R8,-,5th argument,Caller,Holds the fifth argument to the system call.
+R9,-,6th argument,Caller,Holds the sixth argument to the system call.
+RSP,Stack Pointer,Stack pointer,Special,Must point to a valid stack for the system call to execute.
+RCX,Count,Return address (ret),Special,Used to store the return address after the syscall instruction completes.

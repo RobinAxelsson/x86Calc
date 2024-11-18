@@ -1,0 +1,16 @@
+Register,Full Name,Used For,Caller or Callee Saved?,Notes
+RAX,Accumulator,Return value,Caller,Used for arithmetic operations, return values, and temporary storage.
+RDI,Destination Index,1st argument,Caller,Commonly used to pass the first function argument,also used in string/memory operations.
+RSI,Source Index,2nd argument,Caller,Commonly used to pass the second function argument,also used in string/memory operations.
+RDX,Data,3rd argument,Caller,Third argument to functions,often used in loops or shifts.
+RCX,Count,4th argument,Caller,Loop counter in many cases,also used for the fourth argument in function calls.
+R8,-,5th argument,Caller,Used to pass the fifth argument to functions.
+R9,-,6th argument,Caller,Used to pass the sixth argument to functions.
+R10,-,Temporary,Caller,Often used as a temporary scratch register or for system call arguments.
+R11,-,Temporary,Caller,Temporary register,frequently holds flags for system calls.
+R12,-,General-purpose,Callee,General-purpose register for the callee,must be preserved across function calls.
+R13,-,General-purpose,Callee,General-purpose register for the callee,must be preserved across function calls.
+R14,-,General-purpose,Callee,General-purpose register for the callee,must be preserved across function calls.
+R15,-,General-purpose,Callee,General-purpose register for the callee,must be preserved across function calls.
+RBP,Base Pointer,Frame pointer (optional),Callee,Holds the base of the current stack frame in some cases,optional in modern ABIs.
+RSP,Stack Pointer,Stack pointer,Special,Always points to the top of the stack,critical for stack operations (push/pop).
