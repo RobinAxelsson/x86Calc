@@ -4,10 +4,9 @@ section .text
 
 _start:
     push    0x30
-    mov     rdi, rsp
-    mov     rsi, 1
-    call print_str        ; print "0"
-    pop     rax
+    mov     rdi, rsp      ; func arg 1
+    call print_char       ; print "0"
+    pop     rax           ; clean the stack
 
     call print_newline
 
@@ -26,8 +25,7 @@ push_dec_loop:
 print_dec_loop:
     add     byte [rsp], 0x30    ; convert decimal to ASCII equivalent
     mov     rdi, rsp
-    mov     rsi, 1
-    call print_str
+    call print_char
     
     pop     rax
     cmp     byte [rsp], 0
@@ -47,15 +45,14 @@ exit:
     syscall
 
 print_newline:
-    push 0xa
+    push    0xa
     mov     rdi, rsp
-    mov     rsi, 1
-    call print_str
-    pop     rax
+    call print_char
+    pop     rax         ; clean the stack
     ret
 
-print_str:             ; rdi - pointer to ascii bytes, rsi - i bytes to print
-    mov     rdx, rsi
+print_char:             ; rdi - pointer to ascii bytes
+    mov     rdx, 1
     mov     rsi, rdi
     mov     rdi, 1
     mov     rax, 1
