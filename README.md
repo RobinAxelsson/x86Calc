@@ -4,6 +4,11 @@
 
 OS: Linux Debian (I use Kali)
 
+```shell
+    # CPU Architecture x86_64
+    uname -m #returns x86_64
+```
+
 ## References
 
 - [x86_64 intel manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf) saved in ref
@@ -15,8 +20,8 @@ OS: Linux Debian (I use Kali)
 
 ```shell
 
-# to search in pdf manual
-sudo apt install poppler-utils
+# to search in pdf manual? WIP
+sudo apt update && sudo apt install poppler-utils
 pdftotext ./ref/325383-sdm-vol-2abcd.pdf - | grep "Keyword"
 
 ```
