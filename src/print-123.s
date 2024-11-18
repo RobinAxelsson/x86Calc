@@ -1,7 +1,4 @@
 global  _start
-
-section .data
-
 section .text
 
 _start: 
@@ -9,7 +6,7 @@ _start:
     push    0           ; adding a null byte to know when to stop printing
 
 push_chars:
-    xor     rdx, rdx    ; clear rdx, why?
+    xor     rdx, rdx    ; clear rdx, else gives floating point exception
     mov     rcx, 10     ; rax = dividend, rcx = divisior
     idiv    rcx         ; rax = quotient, rdx = reminder
 
