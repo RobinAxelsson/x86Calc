@@ -1,9 +1,10 @@
-         global  _start
+global  _start
 
-         section .data
-message: db      "Hello World!"
+section .data
+    message: db      "Hello World!"
 
-         section .text
+section .text
+
 _start:
          mov     rax, 1
          mov     rdi, 1
