@@ -1,0 +1,13 @@
+Mnemonic,Description,Operands,Notes
+MOV,Move data between registers/memory,dest -src,Versatile - does not affect flags.
+MOVSX,Move with sign extension,dest -src,Extends a smaller value to a larger signed value.
+MOVZX,Move with zero extension,dest -src,Extends a smaller value to a larger unsigned value.
+XCHG,Exchange data between operands,dest -src,Swaps values of dest and src.
+PUSH,Push value onto the stack,src,Decrements RSP and stores src at the new stack location.
+POP,Pop value from the stack,dest,Loads value from the stack into dest and increments RSP.
+LEA,Load effective address,dest -src,Computes address from memory operands without accessing memory.
+CMOVcc,Conditional move based on flags,dest -src,Copies src to dest if condition cc is met.
+MOVAPS,Move aligned packed single-precision floats,dest -src,For SSE - requires 16-byte alignment.
+MOVUPS,Move unaligned packed single-precision floats,dest -src,For SSE - handles unaligned memory.
+MOVDQA,Move aligned packed integers,dest -src,For SSE2 - requires 16-byte alignment.
+MOVDQU,Move unaligned packed integers,dest -src,For SSE2 - handles unaligned memory.

@@ -1,0 +1,9 @@
+Mnemonic,Description,Operands,Notes
+SHL,Shift bits left,dest -count,Zero-fill vacated bits - multiplies by 2^count.
+SAL,Shift bits left (identical to SHL),dest -count,Preferred for signed arithmetic - same as SHL.
+SHR,Shift bits right (logical),dest -count,Zero-fill vacated bits - divides unsigned by 2^count.
+SAR,Shift bits right (arithmetic),dest -count,Preserves sign bit - divides signed by 2^count.
+ROL,Rotate bits left,dest -count,Wrap-around from MSB to LSB.
+ROR,Rotate bits right,dest -count,Wrap-around from LSB to MSB.
+RCL,Rotate bits left through CF,dest -count,Includes CF in rotation - useful for multi-word shifts.
+RCR,Rotate bits right through CF,dest -count,Includes CF in rotation - useful for multi-word shifts.
