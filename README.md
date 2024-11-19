@@ -27,6 +27,8 @@ pdftotext ./ref/325383-sdm-vol-2abcd.pdf - | grep "Keyword"
 
 ```
 
+- [Syscalls table](https://filippo.io/linux-syscall-table/)
+
 ## Assembler
 
 nasm (netwide assembler): open source assembler and disassembler for x86 and x86-64 architectures with its own syntax (compare with masm microsoft macro assembler)

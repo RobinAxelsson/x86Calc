@@ -5,7 +5,7 @@ _start:
     mov     rax, 123    ; add dividend as input to function
     push    0           ; adding a null byte to know when to stop printing
 
-push_chars:
+push_decimal_char_irax:
     xor     rdx, rdx    ; clear rdx, else gives floating point exception
     mov     rcx, 10     ; rax = dividend, rcx = divisior
     idiv    rcx         ; rax = quotient, rdx = reminder
@@ -16,7 +16,7 @@ push_chars:
     add     rdx, 48     ; format to ASCII
     push    rdx
     
-    jmp push_chars
+    jmp push_decimal_char_irax
 
 print:
     mov     rax, [rsp]  ; check if stack has ascii number
