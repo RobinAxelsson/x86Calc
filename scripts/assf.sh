@@ -14,8 +14,8 @@ mkdir -p output
 #assemble
 nasm -f elf64 $asmfile -o $objfile
 
-#link
-ld $objfile -o $binfile
+#link - also with libc library
+ld $objfile -o $binfile -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
 
 #debug
 [ "$2" == "-g" ] && gdb -q "$binfile" || $binfile
