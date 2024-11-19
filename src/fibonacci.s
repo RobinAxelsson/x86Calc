@@ -1,7 +1,9 @@
 global  _start
+extern printf
 
 section .data
     message db "Fibonacci Sequence:", 0x0a
+    outFormat db "%d", 0x0a, 0x00
 
 section .text
 _start:
@@ -25,10 +27,21 @@ initFib:
     ret
 
 loopFib:
+    call printFib
     add rax, rbx    ; get the next number
     xchg rax, rbx   ; swap values
     cmp rbx, 10		; do rbx - 10
     js loopFib		; jump if result is <0
+    ret
+
+printFib:
+    push rax            ; save registers
+    push rbx
+    mov rdi, outFormat  ; set 1st argument (print format)
+    mov rsi, rbx        ; set 2nd argument (Fib number)
+    call printf
+    pop rbx             ; restore registers
+    pop rax
     ret
 
 Exit:
