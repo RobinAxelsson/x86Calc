@@ -108,3 +108,51 @@ info functions
 
 
 ```
+
+### Doing a memory dump
+
+```shell
+    ps aux | grep print-args
+    cd /proc/102040 # get pid
+    pmap XX <pid> # print all that the kernel provides
+
+    117518:   /home/kali/rax/x86-assembly/output/print-args
+     Address Perm   Offset Device   Inode Size KernelPageSize MMUPageSize Rss Pss Pss_Dirty Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Anonymous KSM LazyFree AnonHugePages ShmemPmdMapped FilePmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked THPeligible              VmFlags Mapping
+    00400000 r--p 00000000  08:02 3408616    4              4           4   4   4         0            0            0             4             0          4         0   0        0             0              0             0              0               0    0       0      0           0       rd mr mw me sd print-args
+    00401000 r-xp 00001000  08:02 3408616    4              4           4   4   4         4            0            0             0             4          4         4   0        0             0              0             0              0               0    0       0      0           0    rd ex mr mw me sd print-args
+7ffff7ff9000 r--p 00000000  00:00       0   16              4           4   0   0         0            0            0             0             0          0         0   0        0             0              0             0              0               0    0       0      0           0 rd mr pf io de dd sd [vvar]
+7ffff7ffd000 r-xp 00000000  00:00       0    8              4           4   8   0         0            8            0             0             0          8         0   0        0             0              0             0              0               0    0       0      0           0 rd ex mr mw me de sd [vdso]
+7ffffffde000 rw-p 00000000  00:00       0  132              4           4   8   8         8            0            0             0             8          8         8   0        0             0              0             0              0               0    0       0      0           0 rd wr mr mw me gd ac [stack]
+                                          ==== ============== =========== === === ========= ============ ============ ============= ============= ========== ========= === ======== ============= ============== ============= ============== =============== ==== ======= ====== =========== 
+                                           164             20          20  24  16        12            8            0             4            12         24        12   0        0             0              0             0              0               0    0       0      0           0 KB 
+
+
+    getconf PAGESIZE # Get memory page size -> 4096 bytes
+    # [vvar] is used for acess read-only kernel data without making a system call eg. CLOCK_REALTIME, CLOCK_MONOTONIC
+    # [vdso] is a small shared library provided by the kernel and always mapped into the memory, user space versions of certain system calls for performance reasons. gettimeofday(), clock_gettime(), clock_getres()
+    # see csv tables in ref
+
+    
+
+
+```
+
+### Stack tips
+
+- The stack needs to be aligned with 16byte - in other words the address needs to end at 0 not 8. 0x00007fffffffde80
+
+- The stack holds the input arguments and the environment arguments:
+    - number of input arguments
+    - first argument ptr to string
+    - ...additional
+    - null stack frame 2 bytes  after
+    - environment variables
+
+0x00007fffffffde80│+0x0000: 0x0000000000000001   ← $rsp
+0x00007fffffffde88│+0x0008: 0x00007fffffffe1fd  →  "/home/kali/rax/x86-assembly/output/print-args"
+0x00007fffffffde90│+0x0010: 0x0000000000000000
+0x00007fffffffde98│+0x0018: 0x00007fffffffe22b  →  "SHELL=/usr/bin/zsh"
+0x00007fffffffdea0│+0x0020: 0x00007fffffffe23e  →  "SESSION_MANAGER=local/kali:@/tmp/.ICE-unix/870,uni[...]"
+0x00007fffffffdea8│+0x0028: 0x00007fffffffe28a  →  "WINDOWID=0"
+0x00007fffffffdeb0│+0x0030: 0x00007fffffffe295  →  "QT_ACCESSIBILITY=1"
+0x00007fffffffdeb8│+0x0038: 0x00007fffffffe2a8  →  "COLORTERM=truecolor"
