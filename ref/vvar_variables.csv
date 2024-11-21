@@ -1,0 +1,9 @@
+Constant,Description,Used by
+CLOCK_REALTIME,Constant for accessing the real-time clock (Unix epoch).,clock_gettime() gettimeofday()
+CLOCK_MONOTONIC,Constant for accessing a clock that cannot go backward.,clock_gettime()
+CLOCK_PROCESS_CPUTIME_ID,Constant for accessing CPU time consumed by the calling process.,clock_gettime()
+CLOCK_THREAD_CPUTIME_ID,Constant for accessing CPU time consumed by the calling thread.,clock_gettime()
+NUMA_NO_NODE,Constant representing a non-existent NUMA node.,getcpu()
+SYSINFO_EVERYTHING,Constant used to retrieve all system information (system calls).,getauxval()
+__NR_getcpu,System call number for getcpu().,getcpu()
+__NR_gettimeofday,System call number for gettimeofday().,gettimeofday()

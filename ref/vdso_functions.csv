@@ -1,0 +1,8 @@
+Function,Description,Return Type/Usage
+gettimeofday(),Gets the current time.,Returns the current time in struct timeval.
+clock_gettime(),"Retrieves time from specific clocks (CLOCK_REALTIME, CLOCK_MONOTONIC, etc.).",Returns the time of a specified clock in struct timespec.
+clock_getres(),Retrieves the resolution of a specified clock.,Returns the resolution of the clock in struct timespec.
+time(),Gets the current time as the number of seconds since the Unix epoch.,Returns the current time as a time_t.
+getcpu(),Retrieves the current CPU and NUMA node.,Returns the CPU number and NUMA node as integers.
+random(),Provides random numbers (from kernel entropy).,Returns a random integer.
+getauxval(),Retrieves auxiliary values like architecture info.,"Returns values (e.g., architecture, OS version) or 0 if unavailable."

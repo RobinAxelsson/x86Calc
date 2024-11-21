@@ -1,0 +1,12 @@
+Directive,Description,Bytes Reserved/Defined
+resb,Reserve uninitialized space (byte),1 byte per unit
+resw,Reserve uninitialized space (word),2 bytes per unit
+resd,Reserve uninitialized space (dword),4 bytes per unit
+resq,Reserve uninitialized space (qword),8 bytes per unit
+resy,Reserve uninitialized space (yword),16 bytes per unit
+rest,Reserve uninitialized space (tword),10 bytes per unit
+db,Define initialized bytes,1 byte per unit
+dw,Define initialized words,2 bytes per unit
+dd,Define initialized doublewords,4 bytes per unit
+dq,Define initialized quadwords,8 bytes per unit
+dt,Define initialized ten-byte values,10 bytes per unit

@@ -1,13 +1,13 @@
-Mnemonic,Description,Source,Target,Notes
-MOV,Move data between registers/memory,"Register, Memory","Register, Memory",Versatile - does not affect flags.
-MOVSX,Move with sign extension,Register,Register,Extends a smaller value to a larger signed value.
-MOVZX,Move with zero extension,Register,Register,Extends a smaller value to a larger unsigned value.
-XCHG,Exchange data between operands,"Register, Memory","Register, Memory",Swaps values of dest and src.
-PUSH,Push value onto the stack,"Register, Immediate",Memory,Decrements RSP and stores src at the new stack location.
-POP,Pop value from the stack,Memory,Register,Loads value from the stack into dest and increments RSP.
-LEA,Load effective address,Memory,Register,Computes address from memory operands without accessing memory.
-CMOVcc,Conditional move based on flags,Register,Register,Copies src to dest if condition cc is met.
-MOVAPS,Move aligned packed single-precision floats,Memory,SSE Register,For SSE - requires 16-byte alignment.
-MOVUPS,Move unaligned packed single-precision floats,Memory,SSE Register,For SSE - handles unaligned memory.
-MOVDQA,Move aligned packed integers,Memory,SSE Register,For SSE2 - requires 16-byte alignment.
-MOVDQU,Move unaligned packed integers,Memory,SSE Register,For SSE2 - handles unaligned memory.
+Mnemonic,Description,Source,Target,Notes,Allowed Arithmetic
+MOV,Move data between registers/memory,"Register, Memory","Register, Memory",Versatile - does not affect flags.,No
+MOVSX,Move with sign extension,Register,Register,Extends a smaller value to a larger signed value.,No
+MOVZX,Move with zero extension,Register,Register,Extends a smaller value to a larger unsigned value.,No
+XCHG,Exchange data between operands,"Register, Memory","Register, Memory",Swaps values of dest and src.,No
+PUSH,Push value onto the stack,"Register, Immediate",Memory,Decrements RSP and stores src at the new stack location.,"[rsp+rcx]"
+POP,Pop value from the stack,Memory,Register,Loads value from the stack into dest and increments RSP.,"[rsp+rcx]"
+LEA,Load effective address,Memory,Register,Computes address from memory operands without accessing memory - opposite of mov.,"[rsp+rcx]"
+CMOVcc,Conditional move based on flags,Register,Register,Copies src to dest if condition cc is met.,No
+MOVAPS,Move aligned packed single-precision floats,Memory,SSE Register,For SSE - requires 16-byte alignment.,No
+MOVUPS,Move unaligned packed single-precision floats,Memory,SSE Register,For SSE - handles unaligned memory.,No
+MOVDQA,Move aligned packed integers,Memory,SSE Register,For SSE2 - requires 16-byte alignment.,No
+MOVDQU,Move unaligned packed integers,Memory,SSE Register,For SSE2 - handles unaligned memory.,No
