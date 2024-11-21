@@ -1,0 +1,19 @@
+Symbol/Macro,Description,Example
+$,Current location in the section during assembly (address of the instruction or data being defined).,"db ""Hello"", 0xA len equ $ - message"
+$$,Start of the current section during assembly.,len_from_start equ $ - $$
+%define,Defines a constant or macro for substitution.,"%define MSG ""Hello"" db MSG"
+%assign,Defines a numeric constant that can be reassigned.,%assign COUNT 10
+"%if, %else, %endif",Conditional assembly for including/excluding code based on compile-time expressions.,"%if 1 db ""Included"" %endif"
+%macro/%endmacro,Defines a reusable macro for code generation.,"%macro add 2 mov rax, %1 add rax, %2 %endmacro"
+%include,Includes another NASM source file into the current one.,"%include ""macros.inc"""
+__FILE__,The name of the current source file.,db __FILE__
+__LINE__,The current line number in the source file.,db __LINE__
+%error,Generates a custom error during assembly.,"%if 0 %error ""This should not happen!"" %endif"
+%warning,Generates a custom warning during assembly.,"%if 1 %warning ""This is just a test."" %endif"
+"%rep, %endrep",Repeats a block of code a fixed number of times during assembly.,%rep 5 db 0 %endrep
+"%define, %undef",Defines or undefines a macro or constant.,%define VALUE 10 %undef VALUE
+%xdefine,"Similar to %define, but allows redefinition.",%xdefine VALUE 10 %xdefine VALUE 20
+%arg,Accesses arguments within a macro.,"%macro add 2 mov eax, %1 add eax, %2 %endmacro"
+%%,Creates unique labels within macros or repeat blocks.,%macro unique_macro 0 %%label: nop %endmacro
+__DATE__,The current date in MMM DD YYYY format.,db __DATE__
+__TIME__,The current time in HH:MM:SS format.,db __TIME__
