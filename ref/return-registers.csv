@@ -1,0 +1,7 @@
+Return Type,Register/Memory,Description
+First Integer or Pointer,RAX,The first integer or pointer return value is placed in RAX.
+Second Integer,RDX,The second integer return value is placed in RDX.
+First Floating-Point Value,XMM0,The first floating-point return value is placed in XMM0.
+Second Floating-Point Value,XMM1,The second floating-point return value is placed in XMM1.
+Additional Integer or Pointer Values,Memory,Additional integer return values (if any) are returned in memory, with the caller allocating space for them.
+Additional Floating-Point Values,Memory,Additional floating-point return values (if any) are returned in memory, with the caller allocating space for them.

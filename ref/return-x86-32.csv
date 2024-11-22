@@ -1,0 +1,9 @@
+Return Type,Register/Memory,Description
+Single Integer or Pointer,EAX,Return value is placed in the EAX register.
+Single 64-bit Integer,EDX:EAX,64-bit integer is split across EAX (low) and EDX (high).
+Floating-Point Value,ST(0),Return value is placed on the top of the floating-point stack.
+Small Structs (<=8 bytes),EDX:EAX,Struct is split across EAX (low) and EDX (high).
+Large Structs (>8 bytes),Memory,Caller allocates memory and passes a pointer to the callee; the callee fills the memory.
+Array,Memory,Caller allocates memory and passes a pointer; callee populates the array.
+Multiple Values,Registers/Memory,Primary values are returned in EAX/EDX (if applicable); additional values require caller-provided memory.
+No Return Value,None,No value is returned; EAX is typically left undefined.
