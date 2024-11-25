@@ -7,7 +7,8 @@ global _start
 _start:
     ; Clear registers
     xor     rdi, rdi          ; Clear RDI (for environment pointer)
-    mov     r8, [rsp + 8]     ; Load address of the first environment variable
+    lea     r8, [rsp + 8]     ; Load address of the first environment variable
+    mov     r8, [r8]
 
 print_arg:
     ; Calculate the length of the string (environment variable)
