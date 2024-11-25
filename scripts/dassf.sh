@@ -12,6 +12,7 @@ mkdir -p output
 
 if [[ $2 == '-v'|| $2 == '--verbose' ]]; then
     objdump -x -D -a --full-contents --source --syms -M intel -C -f -g $binfile > $outfile"-dump-verbose.s"
+    #objdump -D -M intel $binfile > $outfile"-dump-verbose.s"
 
 else
     #objdump -M intel -d --full-contents -g $binfile > $outfile"-dump.s"

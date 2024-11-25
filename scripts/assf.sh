@@ -18,4 +18,4 @@ nasm -f elf64 $asmfile -o $objfile
 [ "$2" == "-libc" ] || [ "$3" == "-libc" ] && ld $objfile -o $binfile -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 || ld $objfile -o $binfile
 
 #run or debug
-[ "$2" == "-g" ] || [ "$3" == "-g" ] && gdb -q "$binfile" || $binfile
+[ "$2" == "-g" ] || [ "$3" == "-g" ] && gdb -q --args "$binfile" "$@" || $binfile "$@"
