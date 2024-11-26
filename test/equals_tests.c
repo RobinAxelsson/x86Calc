@@ -1,4 +1,4 @@
-// comp_tests.c
+// equals_tests.c
 #include <stdio.h>
 
 extern int int_equals(int rdi, int rsi);
