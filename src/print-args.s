@@ -13,7 +13,7 @@ print_argv:
     add     rbx, 0xA30        ; add a new line and convert to ascii
     push    rbx
     mov     rsi, rsp
-    mov     rdx, 2            ; only works for args that are less then 10
+    mov     rdx, 2            ; only works for args that are less then 10, enough for most programs
     call print_str_rsiptr_rdxl
     pop     rax
 
