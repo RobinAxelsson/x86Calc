@@ -1,10 +1,26 @@
-global comp1
-extern comp1
+global int_equals
+extern int_equals
+extern ref_equals
+extern deref_equals
 
 section .data
 
 section .text
 
-comp1:
-    mov     rax, 0
+int_equals:
+    xor     rax, rax
+    cmp     rsi, rdi
+    sete    al
+    ret
+
+ref_equals:
+    xor     rax, rax
+    cmp     rsi, rdi
+    sete    al
+    ret
+
+deref_equals:
+    xor     rax, rax
+    cmp     rsi, rdi
+    sete    al
     ret
