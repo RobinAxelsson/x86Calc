@@ -7,13 +7,19 @@ global _start
 _start:
     ; Clear registers
     xor     rdi, rdi          ; Clear RDI (for environment pointer)
-    lea     r8, [rsp + 8]     ; Load address of the first environment variable
-    mov     r8, [r8]
+
+print_argv:
+    mov     rbx, [rsp]
+    add     rbx, 0xA30        ; add a new line and convert to ascii
+    push    rbx
+    mov     rsi, rsp
+    mov     rdx, 2
+    call print_str_rsiptr_rdxl
+    pop     rax
 
 print_arg:
-    ; Calculate the length of the string (environment variable)
+    mov     rsi, [rsp + 8]     ; Load address of the first environment variable
     xor     rdx, rdx          ; Clear rdx (used for string length)
-    mov     rsi, r8         ; Load address of the environment variable string
     
     find_null_terminator:
         mov     al, byte [rsi + rdx]  ; Load the byte at rsi + rdx
