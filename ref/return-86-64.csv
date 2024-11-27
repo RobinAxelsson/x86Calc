@@ -1,9 +1,0 @@
-Return Type,Register/Memory,Description
-Single Integer or Pointer,RAX,Return value is placed in the RAX register.
-Single 64-bit Integer,RAX,Return value is placed in the RAX register (64-bit integers).
-Floating-Point Value,XMM0,Return value is placed in the XMM0 register (used for floating-point values).
-Small Structs (<=16 bytes),Registers,Return values are split across registers (RAX; RDX; XMM0-XMM1) if the struct fits within 16 bytes.
-Large Structs (>16 bytes),Memory,Caller allocates memory and passes a pointer to the callee; the callee writes the result to that memory.
-Array,Memory,Caller allocates memory and passes a pointer; callee populates the array.
-Multiple Values,Registers/Memory,Primary values are returned in RAX (integer) XMM0 (floating-point); additional values may be returned in RDX; XMM1; etc.; or via memory.
-No Return Value,None,No value is returned; RAX is undefined or ignored.
