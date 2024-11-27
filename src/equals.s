@@ -9,69 +9,45 @@ section .data
 
 section .text
 
+; just examples
+; input: qword rdi, qword rsi, qword rdx
 int_equals:
     xor     rax, rax
-    cmp     rsi, rdi
+    cmp     esi, edi
     sete    al
     ret
 
+; just example
 ref_equals: ; qword 64 bit ptr
     xor     rax, rax
     cmp     rsi, rdi
     sete    al
     ret
 
-; input: qword rdi, qword rsi, qword rdx
+; input: pointer rdi, pointer rsi, length rdx
 deref_equals:
-    xor     rax, rax
+    dec     rdx             ; rdx is the length of the bytes to compare
+    lea     rbx, [rdi+rdx]  ; get the effective address to compare
+    mov     bl, [rbx]       ; read the first byte at the address into bl
+    
+    cmp     bl, [rsi+rdx]   ; compare the byte with the second address byte
+    jne     return_false
 
-    cmp     rdx, 1
-    je      byte_equals
-
-    cmp     rdx, 2
-    je      word_equals
-
-    cmp     rdx, 4
-    je      dword_equals
-
-    cmp     rdx, 8
-    je      qword_equals
-
-byte_equals: ; 8 bits
-    mov     sil, [rsi]  ; memory addresses are 8 bytes
-    mov     dil, [rdi]  ; dil, sil 8bits
-    cmp     sil, dil
-    sete    al
+    cmp     rdx, 0
+    jg      deref_equals    ; if rdx is 0 all bytes have been iterated through
+    mov     rax, 1
     ret
 
-word_equals: ; 16 bits
-    mov     si, [rsi]  ; memory addresses are 8 bytes
-    mov     di, [rdi]  ; di, rdi 16 bits
-    cmp     si, di
-    sete    al
-    ret
-
-dword_equals:
-    mov     esi, [rsi]  ; memory addresses are 8 bytes, but int is 4 bytes
-    mov     edi, [rdi]  ; edi, rdi 32 bits
-    cmp     esi, edi
-    sete    al
-    ret
-
-qword_equals:
-    mov     rsi, [rsi]  ; memory addresses are 8 bytes, but int is 4 bytes
-    mov     rdi, [rdi]  ; rdi, rsi 64 bits
-    cmp     rsi, rdi
-    sete    al
+return_false:
+    mov     rax, 0
     ret
 
 str_equals:
     xor     rax, rax
     mov     cx, 10000
-    ; iterates until end of string or end of cx
-    repe cmpsb ;repz cmps BYTE PTR ds:[rsi], BYTE PTR es:[rdi]
-    sete    al
+    repe cmpsb          ; Use the `repe` (repeat while equal) prefix with the `cmpsb` (compare byte) instruction.
+                        ; This compares the bytes at the addresses pointed to by RSI and RDI and increments both registers after each comparison.
+                        ; If the bytes are equal, it continues comparing, otherwise it stops early.
+    sete    al          ; set if equal: if string comparison is equal set al to 1 (true)
     
     ret
-
-; bytes_equals:
