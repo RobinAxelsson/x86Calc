@@ -2,6 +2,8 @@ global format
 
 extern decimal_parse
 extern strlen
+extern get_decimal_i
+extern mul10
 
 ; input rdi - null terminated string pointer to decimal number
 decimal_parse:
@@ -41,6 +43,31 @@ add_decimal:
 
     jne      get_decimal
     ret
+
+; ------------------
+
+mul10:    ; input rdi number, rsi power of 10
+    cmp     sil, 0
+    jle     mul10_return
+
+    imul    rdi, 10
+    dec     sil
+    jmp     mul10
+
+mul10_return:
+    mov     rax, rdi
+    ret
+
+; ------------------
+
+get_decimal_i: ; address rdi, index rsi
+    xor     rax, rax
+    mov     al, [rdi+rsi]
+    sub     al, 48        ; convert from ascii to decimal
+    movsx   rax, al
+    ret
+
+; ------------------
 
 strlen:
     mov     rcx, -1
