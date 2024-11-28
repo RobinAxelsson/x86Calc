@@ -37,14 +37,14 @@ void decimal_parse_1_1()
     printf("%d, decimal_parse_1_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void decimal_parse_11_11()
+void decimal_parse_21_21()
 {
     char* input = "21\0";
     long res = decimal_parse(input);
     long exp = 21;
     char *fail = apply_result(exp == res);
 
-    printf("%d, decimal_parse_11_11 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, decimal_parse_21_21 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 void strlen_abc_3(){
@@ -56,31 +56,31 @@ void strlen_abc_3(){
     printf("%d, strlen_abc_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void get_decimal_i_123_1(){
+void get_decimal_i_123and0_1(){
     char* input = "123";
     long res = get_decimal_i(input, 0);
     long exp = 1;
     char *fail = apply_result(exp == res);
 
-    printf("%d, get_decimal_i_123_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, get_decimal_i_123and0_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void get_decimal_i_123_2(){
+void get_decimal_i_123and1_2(){
     char* input = "123";
     long res = get_decimal_i(input, 1);
     long exp = 2;
     char *fail = apply_result(exp == res);
 
-    printf("%d, get_decimal_i_123_2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, get_decimal_i_123and1_2 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void get_decimal_i_123_3(){
+void get_decimal_i_123and2_3(){
     char* input = "123";
     long res = get_decimal_i(input, 2);
     long exp = 3;
     char *fail = apply_result(exp == res);
 
-    printf("%d, get_decimal_i_123_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, get_decimal_i_123and2_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 void strlen_null_0(){
@@ -116,12 +116,12 @@ void mul10_5and0_5(){
 int main() 
 {
     decimal_parse_1_1();
-    decimal_parse_11_11();
+    decimal_parse_21_21();
     strlen_abc_3();
     strlen_null_0();
-    get_decimal_i_123_1();
-    get_decimal_i_123_2();
-    get_decimal_i_123_3();
+    get_decimal_i_123and0_1();
+    get_decimal_i_123and1_2();
+    get_decimal_i_123and2_3();
     mul10_5and2_500();
     mul10_5and0_5();
     //Summary

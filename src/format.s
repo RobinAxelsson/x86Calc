@@ -9,39 +9,32 @@ extern mul10
 decimal_parse:
     xor     rax, rax
     xor     rsi, rsi
-    mov     rcx, -1          ; the length of the digits
+    xor     r8, r8
 
-count_to_null:
-    inc     rcx
-    mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
-    cmp     al, 0x00         ; Check if it's the null terminator
-    jne     count_to_null    ; if only null digits are 0
+    call strlen        ; input rdi
 
-    mov     rdx, rcx       ; set max value
-    xor     rcx, rcx       ; set i = 0
+    cmp     rax, 1
+    je      single_digit
+    
+    ; assume 2 digits
 
-get_decimal:
-    mov     sil, [rdi+rcx]
-    sub     sil, 48        ; convert from ascii to decimal
-    movsx   rsi, sil
+    mov     rsi, 0
+    call get_decimal_i
+    imul    rax, 10
+    mov     r8, rax
 
-    push    rcx
-    cmp     rcx, 0         ; lowest digit
-    je      add_decimal
+    mov     rsi, 1
+    call get_decimal_i
+    add     rax, r8
+    jmp decimal_parse_return
 
-multiply_by_10:
-    imul    rsi, 10
-    dec     rcx
-    cmp     rcx, 0
-    jne    multiply_by_10
+single_digit:
+    mov     rsi, 0
+    call get_decimal_i ; input rdi, index rsi
+    add     r8, rax
+    xchg    r8, rax
 
-add_decimal:
-    pop     rcx
-    add     rax, rsi
-    inc     rcx
-    cmp     rcx, rdx
-
-    jne      get_decimal
+decimal_parse_return:
     ret
 
 ; ------------------
@@ -69,6 +62,7 @@ get_decimal_i: ; address rdi, index rsi
 
 ; ------------------
 
+; input string rdi
 strlen:
     mov     rcx, -1
 count_char:
