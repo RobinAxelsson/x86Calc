@@ -1,4 +1,4 @@
-global int_equals
+global equals
 
 extern int_equals
 extern ref_equals
