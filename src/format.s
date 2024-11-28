@@ -1,6 +1,7 @@
 global format
 
 extern decimal_parse
+extern strlen
 
 ; input rdi - null terminated string pointer to decimal number
 decimal_parse:
@@ -14,8 +15,10 @@ count_to_null:
     cmp     al, 0x00         ; Check if it's the null terminator
     jne     count_to_null    ; if only null digits are 0
 
+    mov     rdx, rcx       ; set max value
+    xor     rcx, rcx       ; set i = 0
+
 get_decimal:
-    dec     rcx            ; decrement to end with zero offset
     mov     sil, [rdi+rcx]
     sub     sil, 48        ; convert from ascii to decimal
     movsx   rsi, sil
@@ -33,8 +36,18 @@ multiply_by_10:
 add_decimal:
     pop     rcx
     add     rax, rsi
+    inc     rcx
+    cmp     rcx, rdx
 
-    cmp     rcx, 0
-    jg      get_decimal
+    jne      get_decimal
     ret
 
+strlen:
+    mov     rcx, -1
+count_char:
+    inc     rcx
+    mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
+    cmp     al, 0x00         ; Check if it's the null terminator
+    jne     count_char    ; if only null digits are 0
+    mov     rax, rcx
+    ret
