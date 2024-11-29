@@ -14,7 +14,7 @@ remove_file ./output/format_tests
 nasm -f elf64 ./src/format.s -o ./output/format.o
 gcc ./test/format_tests.c ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
 
-./output/format_tests
+[ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
 
 # remove_file ./output/equals.o
 # remove_file ./output/equals_tests
