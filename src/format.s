@@ -4,40 +4,45 @@ extern decimal_parse
 extern strlen
 extern get_decimal_i
 extern mul10
+extern extend_decimal_rdi_numb_rsi_len_rdx_i
 
 ; input rdi - null terminated string pointer to decimal number
 decimal_parse:
     xor     rax, rax
-    xor     rsi, rsi
-    xor     r8, r8
-
-    call strlen        ; input rdi
-
-    cmp     rax, 1
-    je      single_digit
+    mov     r8, rdi  ; r8 is the pointer
+    xor     r9, r9   ; length of string 3
+    xor     r10, r10 ; sum
     
-    ; assume 2 digits
+    mov     rdi, r8
+    call strlen     ; input string rdi
+    
+    mov     r9, rax   ; r9 = 3 length
+    xor     rcx, rcx
+    
+    sum_digits:
 
-    mov     rsi, 0
-    call get_decimal_i
-    imul    rax, 10
-    mov     r8, rax
+    mov     rdi, r8
+    mov     rsi, rcx
+    call    get_decimal_i ; address rdi, index rsi
 
-    mov     rsi, 1
-    call get_decimal_i
-    add     rax, r8
-    jmp decimal_parse_return
+    mov     rdi, rax
+    mov     rsi, r9
+    mov     rdx, rcx
+    call    extend_decimal_rdi_numb_rsi_len_rdx_i
+    add     r10, rax
 
-single_digit:
-    mov     rsi, 0
-    call get_decimal_i ; input rdi, index rsi
-    add     r8, rax
-    xchg    r8, rax
-
-decimal_parse_return:
+    inc     rcx
+    cmp     rcx, r9
+    jne     sum_digits
+    
+    mov     rax, r10
     ret
 
 ; ------------------
+extend_decimal_rdi_numb_rsi_len_rdx_i:
+    xor     rax, rax
+    sub     rsi, rdx
+    dec     rsi
 
 mul10:    ; input rdi number, rsi power of 10
     cmp     sil, 0
