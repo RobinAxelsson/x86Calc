@@ -79,14 +79,13 @@ count_char:
 ; ------------------
 
 char_parse_numb_rdi_number_rsi_ptr:
-debug:
     push    rbp
     mov     rbp, rsp
-
+    
     mov     rax, rdi    ; rax = dividend
     mov     rcx, 10     ; rcx = divisior
 
-    push_decimal_char_irax:
+push_decimal_char_irax:
     ; division: rax / rcx = rax + reminder rdx ; replace rcx to constant
     xor     rdx, rdx    ; clear rdx, else gives floating point exception
     idiv    rcx         ; rax = quotient, rdx = reminder, needs to be register
@@ -98,7 +97,7 @@ debug:
     jne push_decimal_char_irax
 
     xor     rcx, rcx    ; counter for char position, start at most significant
-    concat:
+concat:
     cmp     rbp, rsp    ; check if we restored the stack aka concatinated all digits
     je push_decimal_char_return
 
@@ -108,7 +107,7 @@ debug:
 
     jmp concat
 
-    push_decimal_char_return:
-    mov     rax, rsi
+push_decimal_char_return:
+    mov     rax, rsi ; we dont need to add null if [rsi] points to only 0
     pop     rbp
     ret

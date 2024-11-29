@@ -192,6 +192,26 @@ void char_parse_numb_rdi_number_rsi_ptr__0__equal(){
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__0__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
 
+void char_parse_numb_rdi_number_rsi_ptr__neg1__equal(){
+    char res[10];
+    char_parse_numb_rdi_number_rsi_ptr(-1, res);
+    char* exp = "-1";
+
+    int str_equal = strcmp(res, exp) == 0;
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__neg1__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
+void char_parse_numb_rdi_number_rsi_ptr__check_null__null_exists(){
+    char res[5] = "12345";
+
+    char_parse_numb_rdi_number_rsi_ptr(1, res);
+    char* exp = "1";
+
+    char *fail = apply_result(res[1] == exp[1]);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__neg1__equal - expected: %s result: %s %s\n", tests, exp[1], res[1], fail);
+}
+
 //------------------------------------------
 
 int main() 
@@ -217,6 +237,7 @@ int main()
     char_parse_numb_rdi_number_rsi_ptr__69__equal();
     char_parse_numb_rdi_number_rsi_ptr__123456789__equal();
     char_parse_numb_rdi_number_rsi_ptr__0__equal();
+    char_parse_numb_rdi_number_rsi_ptr__check_null__null_exists();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
