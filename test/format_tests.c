@@ -189,13 +189,33 @@ void extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30(){
     printf("%d, extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void char_parse_numb_rdi_number_rsi_ptr__1_2_1null(){
-    char res[1] = "0";
+void char_parse_numb_rdi_number_rsi_ptr__1_2__1null(){
+    //this way with[x] creates read and writeable memory
+    //just char res = "0" gives only readable memory
+    char res[5];
     char_parse_numb_rdi_number_rsi_ptr(1, res);
-    char* exp = "1";
-    
-    char *fail = apply_result(res[0] == exp[0]);
-    printf("%d, char_parse_numb_rdi_number_rsi_ptr__1_2_1null - expected: %s result: %s %s\n", tests, exp, res, fail);
+    char* exp = "1\0";
+    int str_equal = strcmp(res, exp) == 0; //0 means equal
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__1_2__1null - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
+void char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2(){
+    char res[5];
+    char_parse_numb_rdi_number_rsi_ptr(1, res);
+    char* not_exp = "2";
+    int str_equal = strcmp(res, not_exp) != 0; //0 means equal
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2 - expected: not %s result: %s %s\n", tests, not_exp, res, fail);
+}
+
+void char_parse_numb_rdi_number_rsi_ptr__9__equal(){
+    char res[5];
+    char_parse_numb_rdi_number_rsi_ptr(9, res);
+    char* exp = "9";
+    int str_equal = strcmp(res, exp) == 0; //0 means equal
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__9__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
 
 int main() 
@@ -205,7 +225,13 @@ int main()
     decimal_parse_99_99();
     decimal_parse_169_169();
 
-    char_parse_numb_rdi_number_rsi_ptr__1_2_1null();
+    printf("\n");
+
+    char_parse_numb_rdi_number_rsi_ptr__1_2__1null();
+    char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2();
+    char_parse_numb_rdi_number_rsi_ptr__9__equal();
+
+    printf("\n");
 
     str_length_abc_3();
     str_length_null_0();
