@@ -79,6 +79,36 @@ count_char:
 ; ------------------
 
 char_parse_numb_rdi_number_rsi_ptr:
-    add  rdi, 0x30
-    mov  byte [rsi], dil
+debug:
+    push    rbp
+    mov     rbp, rsp
+
+    mov     rax, rdi    ; rax = dividend
+    mov     rcx, 10     ; rcx = divisior
+
+    push_decimal_char_irax:
+    ; division: rax / rcx = rax + reminder rdx ; replace rcx to constant
+    xor     rdx, rdx    ; clear rdx, else gives floating point exception
+    idiv    rcx         ; rax = quotient, rdx = reminder, needs to be register
+
+    add     rdx, 0x30   ; format to ASCII
+    push    rdx
+
+    cmp     rax, 0      ; nothing more to print when reminder is 0 //not true todo
+    jne push_decimal_char_irax
+
+    xor     rcx, rcx    ; counter for char position, start at most significant
+    concat:
+    cmp     rbp, rsp    ; check if we restored the stack aka concatinated all digits
+    je push_decimal_char_return
+
+    pop     rax         ; look for next number
+    mov     [rsi+rcx], rax  ; assign char
+    inc     rcx
+
+    jmp concat
+
+    push_decimal_char_return:
+    mov     rax, rsi
+    pop     rbp
     ret

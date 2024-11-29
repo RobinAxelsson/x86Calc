@@ -32,7 +32,7 @@ char* apply_result(int boolean_result)
 
 void decimal_parse_1_1()
 {
-    char* input = "1\0";
+    char* input = "1";
     char res = decimal_parse(input);
     char exp = 1;
     char *fail = apply_result(exp == res);
@@ -42,7 +42,7 @@ void decimal_parse_1_1()
 
 void decimal_parse_21_21()
 {
-    char* input = "21\0";
+    char* input = "21";
     long res = decimal_parse(input);
     long exp = 21;
     char *fail = apply_result(exp == res);
@@ -52,7 +52,7 @@ void decimal_parse_21_21()
 
 void decimal_parse_99_99()
 {
-    char* input = "99\0";
+    char* input = "99";
     long res = decimal_parse(input);
     long exp = 99;
     char *fail = apply_result(exp == res);
@@ -62,7 +62,7 @@ void decimal_parse_99_99()
 
 void decimal_parse_169_169()
 {
-    char* input = "169\0";
+    char* input = "169";
     long res = decimal_parse(input);
     long exp = 169;
     char *fail = apply_result(exp == res);
@@ -165,11 +165,31 @@ void char_parse_numb_rdi_number_rsi_ptr__9__equal(){
 void char_parse_numb_rdi_number_rsi_ptr__69__equal(){
     char res[5];
     char_parse_numb_rdi_number_rsi_ptr(69, res);
-    char* exp = "69\0";
+    char* exp = "69";
 
     int str_equal = strcmp(res, exp) == 0;
     char *fail = apply_result(str_equal);
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__9__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
+void char_parse_numb_rdi_number_rsi_ptr__123456789__equal(){
+    char res[10];
+    char_parse_numb_rdi_number_rsi_ptr(123456789, res);
+    char* exp = "123456789";
+
+    int str_equal = strcmp(res, exp) == 0;
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__123456789__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
+void char_parse_numb_rdi_number_rsi_ptr__0__equal(){
+    char res[10];
+    char_parse_numb_rdi_number_rsi_ptr(0, res);
+    char* exp = "0";
+
+    int str_equal = strcmp(res, exp) == 0;
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__0__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
 
 //------------------------------------------
@@ -195,6 +215,8 @@ int main()
     char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2();
     char_parse_numb_rdi_number_rsi_ptr__9__equal();
     char_parse_numb_rdi_number_rsi_ptr__69__equal();
+    char_parse_numb_rdi_number_rsi_ptr__123456789__equal();
+    char_parse_numb_rdi_number_rsi_ptr__0__equal();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
