@@ -42,7 +42,7 @@ extend_decimal_rdi_numb_rsi_len_rdx_i:
     sub     rsi, rdx
     dec     rsi
 
-mul10:    ; input rdi number, rsi power of 10
+    mul10:                ; input rdi number, rsi power of 10
     cmp     sil, 0
     jle     mul10_return
 
@@ -50,7 +50,7 @@ mul10:    ; input rdi number, rsi power of 10
     dec     sil
     jmp     mul10
 
-mul10_return:
+    mul10_return:
     mov     rax, rdi
     ret
 
@@ -68,11 +68,12 @@ get_decimal_i: ; address rdi, index rsi
 ; input string rdi
 str_length:
     mov     rcx, -1
-count_char:
+    
+    count_char:
     inc     rcx
     mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
     cmp     al, 0x00         ; Check if it's the null terminator
-    jne     count_char    ; if only null digits are 0
+    jne     count_char       ; if only null digits are 0
     mov     rax, rcx
     ret
 
@@ -81,11 +82,18 @@ count_char:
 char_parse_numb_rdi_number_rsi_ptr:
     push    rbp
     mov     rbp, rsp
-    
+    xor     r8, r8      ; our negative number bool
+
     mov     rax, rdi    ; rax = dividend
     mov     rcx, 10     ; rcx = divisior
+    cmp     rax, 0      ; check if negatve
+    jge     push_decimal_char_irax
 
-push_decimal_char_irax:
+    if_negative:
+    mov    r8, 1   ; input is a negative number
+    neg     rax     ; print the positive number anyways
+
+    push_decimal_char_irax:
     ; division: rax / rcx = rax + reminder rdx ; replace rcx to constant
     xor     rdx, rdx    ; clear rdx, else gives floating point exception
     idiv    rcx         ; rax = quotient, rdx = reminder, needs to be register
@@ -96,8 +104,17 @@ push_decimal_char_irax:
     cmp     rax, 0      ; nothing more to print when reminder is 0 //not true todo
     jne push_decimal_char_irax
 
+    cmp     r8, 1      ; check input was negative 1 means negative
+    jne     end_push   
+
+    push_minus:
+    mov     rdx, 0x2D
+    push    rdx
+
+    end_push:
     xor     rcx, rcx    ; counter for char position, start at most significant
-concat:
+
+    concat:
     cmp     rbp, rsp    ; check if we restored the stack aka concatinated all digits
     je push_decimal_char_return
 
@@ -107,7 +124,7 @@ concat:
 
     jmp concat
 
-push_decimal_char_return:
+    push_decimal_char_return:
     mov     rax, rsi ; we dont need to add null if [rsi] points to only 0
     pop     rbp
     ret

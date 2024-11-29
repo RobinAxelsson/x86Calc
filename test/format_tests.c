@@ -238,6 +238,7 @@ int main()
     char_parse_numb_rdi_number_rsi_ptr__123456789__equal();
     char_parse_numb_rdi_number_rsi_ptr__0__equal();
     char_parse_numb_rdi_number_rsi_ptr__check_null__null_exists();
+    char_parse_numb_rdi_number_rsi_ptr__neg1__equal();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
