@@ -1,9 +1,6 @@
 global format
 
 extern decimal_parse
-extern str_length
-extern get_decimal_i
-extern mul10
 extern extend_decimal_rdi_numb_rsi_len_rdx_i
 extern char_parse_numb_rdi_number_rsi_ptr
 

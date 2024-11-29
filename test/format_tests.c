@@ -5,9 +5,6 @@
 
 //externs are written in x86 assembly
 extern long decimal_parse(char* string);
-extern long str_length(char* string);
-extern long get_decimal_i(char* string, long index);
-extern long mul10(long number, char power);
 extern long extend_decimal_rdi_numb_rsi_len_rdx_i(long decimal, long length, long index);
 extern void char_parse_numb_rdi_number_rsi_ptr(long number, char* dest);
 
@@ -28,6 +25,8 @@ char* apply_result(int boolean_result)
 
     return fail;
 }
+
+//------------------------------------------
 
 void decimal_parse_1_1()
 {
@@ -69,70 +68,7 @@ void decimal_parse_169_169()
     printf("%d, decimal_parse_169_169 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void str_length_abc_3(){
-    char* input = "abc\0";
-    long res = str_length(input);
-    long exp = 3;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, str_length_abc_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void get_decimal_i_123and0_1(){
-    char* input = "123";
-    long res = get_decimal_i(input, 0);
-    long exp = 1;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, get_decimal_i_123and0_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void get_decimal_i_123and1_2(){
-    char* input = "123";
-    long res = get_decimal_i(input, 1);
-    long exp = 2;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, get_decimal_i_123and1_2 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void get_decimal_i_123and2_3(){
-    char* input = "123";
-    long res = get_decimal_i(input, 2);
-    long exp = 3;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, get_decimal_i_123and2_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void str_length_null_0(){
-    char* input = "\0";
-    long res = str_length(input);
-    long exp = 0;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, str_length_null_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void mul10_5and2_500(){
-    long number = 5;
-    char power = 3;
-    long res = mul10(number, power);
-    long exp = 5000;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, mul10_5and2_500 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
-void mul10_5and0_5(){
-    long number = 5;
-    char power = 0;
-    long res = mul10(number, power);
-    long exp = 5;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, mul10_5and0_5 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
+//------------------------------------------
 
 void extend_decimal_rdi_numb_rsi_len_rdx_i__5_1_0__5(){
     long rdi_numb = 5;
@@ -189,6 +125,8 @@ void extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30(){
     printf("%d, extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+//------------------------------------------
+
 void char_parse_numb_rdi_number_rsi_ptr__1_2__1null(){
     //this way with[x] creates read and writeable memory
     //just char res = "0" gives only readable memory
@@ -232,16 +170,6 @@ int main()
     char_parse_numb_rdi_number_rsi_ptr__9__equal();
 
     printf("\n");
-
-    str_length_abc_3();
-    str_length_null_0();
-
-    get_decimal_i_123and0_1();
-    get_decimal_i_123and1_2();
-    get_decimal_i_123and2_3();
-
-    mul10_5and2_500();
-    mul10_5and0_5();
 
     extend_decimal_rdi_numb_rsi_len_rdx_i__5_1_0__5();
     extend_decimal_rdi_numb_rsi_len_rdx_i__4_2_1__4();
