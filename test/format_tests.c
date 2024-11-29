@@ -11,6 +11,8 @@ extern void char_parse_numb_rdi_number_rsi_ptr(long number, char* dest);
 int passed = 0;
 int tests = 0;
 
+//--------------Test helpers------------------
+
 char* apply_result(int boolean_result)
 {
     tests++;
@@ -126,14 +128,18 @@ void extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30(){
 }
 
 //------------------------------------------
+//notes:
+//null terminator is implicit in C
+//char res[5] creates read and writeable memory
+//char *res = "0" gives only readable memory
+//strcmp: stops at first /0, 0 means equal
 
 void char_parse_numb_rdi_number_rsi_ptr__1_2__1null(){
-    //this way with[x] creates read and writeable memory
-    //just char res = "0" gives only readable memory
+    
     char res[5];
     char_parse_numb_rdi_number_rsi_ptr(1, res);
-    char* exp = "1\0";
-    int str_equal = strcmp(res, exp) == 0; //0 means equal
+    char* exp = "1";
+    int str_equal = strcmp(res, exp) == 0;
     char *fail = apply_result(str_equal);
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__1_2__1null - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
@@ -142,7 +148,7 @@ void char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2(){
     char res[5];
     char_parse_numb_rdi_number_rsi_ptr(1, res);
     char* not_exp = "2";
-    int str_equal = strcmp(res, not_exp) != 0; //0 means equal
+    int str_equal = strcmp(res, not_exp) != 0;
     char *fail = apply_result(str_equal);
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2 - expected: not %s result: %s %s\n", tests, not_exp, res, fail);
 }
@@ -151,10 +157,22 @@ void char_parse_numb_rdi_number_rsi_ptr__9__equal(){
     char res[5];
     char_parse_numb_rdi_number_rsi_ptr(9, res);
     char* exp = "9";
-    int str_equal = strcmp(res, exp) == 0; //0 means equal
+    int str_equal = strcmp(res, exp) == 0;
     char *fail = apply_result(str_equal);
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__9__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
+
+void char_parse_numb_rdi_number_rsi_ptr__69__equal(){
+    char res[5];
+    char_parse_numb_rdi_number_rsi_ptr(69, res);
+    char* exp = "69\0";
+
+    int str_equal = strcmp(res, exp) == 0;
+    char *fail = apply_result(str_equal);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__9__equal - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
+//------------------------------------------
 
 int main() 
 {
@@ -165,19 +183,18 @@ int main()
 
     printf("\n");
 
-    char_parse_numb_rdi_number_rsi_ptr__1_2__1null();
-    char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2();
-    char_parse_numb_rdi_number_rsi_ptr__9__equal();
-
-    printf("\n");
-
     extend_decimal_rdi_numb_rsi_len_rdx_i__5_1_0__5();
     extend_decimal_rdi_numb_rsi_len_rdx_i__4_2_1__4();
     extend_decimal_rdi_numb_rsi_len_rdx_i__3_2_0__30();
     extend_decimal_rdi_numb_rsi_len_rdx_i__9_5_0__90000();
     extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30();
 
+    printf("\n");
 
+    char_parse_numb_rdi_number_rsi_ptr__1_2__1null();
+    char_parse_numb_rdi_number_rsi_ptr__1__not_equal_2();
+    char_parse_numb_rdi_number_rsi_ptr__9__equal();
+    char_parse_numb_rdi_number_rsi_ptr__69__equal();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
