@@ -190,11 +190,11 @@ void extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30(){
 }
 
 void char_parse_numb_rdi_number_rsi_ptr__1_2_1null(){
-    char res[2] = "0\0";
+    char res[1] = "0";
     char_parse_numb_rdi_number_rsi_ptr(1, res);
-    char* exp = "1\0";
+    char* exp = "1";
     
-    char *fail = apply_result(strcmp(exp, res));
+    char *fail = apply_result(res[0] == exp[0]);
     printf("%d, char_parse_numb_rdi_number_rsi_ptr__1_2_1null - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
 

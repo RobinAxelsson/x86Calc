@@ -82,6 +82,6 @@ count_char:
 ; ------------------
 
 char_parse_numb_rdi_number_rsi_ptr:
-    mov  rdi, 0x3100
-    mov  word [rsi], di
+    mov  rdi, 0x31
+    mov  byte [rsi], dil
     ret
