@@ -1,10 +1,11 @@
 global format
 
 extern decimal_parse
-extern strlen
+extern str_length
 extern get_decimal_i
 extern mul10
 extern extend_decimal_rdi_numb_rsi_len_rdx_i
+extern char_parse_numb_rdi_number_rsi_ptr
 
 ; input rdi - null terminated string pointer to decimal number
 decimal_parse:
@@ -14,7 +15,7 @@ decimal_parse:
     xor     r10, r10 ; sum
     
     mov     rdi, r8
-    call strlen     ; input string rdi
+    call str_length     ; input string rdi
     
     mov     r9, rax   ; r9 = 3 length
     xor     rcx, rcx
@@ -68,7 +69,7 @@ get_decimal_i: ; address rdi, index rsi
 ; ------------------
 
 ; input string rdi
-strlen:
+str_length:
     mov     rcx, -1
 count_char:
     inc     rcx
@@ -76,4 +77,11 @@ count_char:
     cmp     al, 0x00         ; Check if it's the null terminator
     jne     count_char    ; if only null digits are 0
     mov     rax, rcx
+    ret
+
+; ------------------
+
+char_parse_numb_rdi_number_rsi_ptr:
+    mov  rdi, 0x3100
+    mov  word [rsi], di
     ret

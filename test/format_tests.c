@@ -1,14 +1,15 @@
 // equals_tests.c
 #include <stdio.h>
+#include <string.h>
 //main is at end of file for convinience
 
 //externs are written in x86 assembly
 extern long decimal_parse(char* string);
-extern long strlen(char* string);
+extern long str_length(char* string);
 extern long get_decimal_i(char* string, long index);
 extern long mul10(long number, char power);
 extern long extend_decimal_rdi_numb_rsi_len_rdx_i(long decimal, long length, long index);
-
+extern void char_parse_numb_rdi_number_rsi_ptr(long number, char* dest);
 
 int passed = 0;
 int tests = 0;
@@ -68,13 +69,13 @@ void decimal_parse_169_169()
     printf("%d, decimal_parse_169_169 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void strlen_abc_3(){
+void str_length_abc_3(){
     char* input = "abc\0";
-    long res = strlen(input);
+    long res = str_length(input);
     long exp = 3;
     char *fail = apply_result(exp == res);
 
-    printf("%d, strlen_abc_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_length_abc_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 void get_decimal_i_123and0_1(){
@@ -104,13 +105,13 @@ void get_decimal_i_123and2_3(){
     printf("%d, get_decimal_i_123and2_3 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void strlen_null_0(){
+void str_length_null_0(){
     char* input = "\0";
-    long res = strlen(input);
+    long res = str_length(input);
     long exp = 0;
     char *fail = apply_result(exp == res);
 
-    printf("%d, strlen_null_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_length_null_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 void mul10_5and2_500(){
@@ -188,6 +189,15 @@ void extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30(){
     printf("%d, extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void char_parse_numb_rdi_number_rsi_ptr__1_2_1null(){
+    char res[2] = "0\0";
+    char_parse_numb_rdi_number_rsi_ptr(1, res);
+    char* exp = "1\0";
+    
+    char *fail = apply_result(strcmp(exp, res));
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr__1_2_1null - expected: %s result: %s %s\n", tests, exp, res, fail);
+}
+
 int main() 
 {
     decimal_parse_1_1();
@@ -195,8 +205,10 @@ int main()
     decimal_parse_99_99();
     decimal_parse_169_169();
 
-    strlen_abc_3();
-    strlen_null_0();
+    char_parse_numb_rdi_number_rsi_ptr__1_2_1null();
+
+    str_length_abc_3();
+    str_length_null_0();
 
     get_decimal_i_123and0_1();
     get_decimal_i_123and1_2();
@@ -210,6 +222,8 @@ int main()
     extend_decimal_rdi_numb_rsi_len_rdx_i__3_2_0__30();
     extend_decimal_rdi_numb_rsi_len_rdx_i__9_5_0__90000();
     extend_decimal_rdi_numb_rsi_len_rdx_i__3_3_1__30();
+
+
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
