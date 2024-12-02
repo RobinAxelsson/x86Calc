@@ -1,11 +1,15 @@
 global byte_arr ; Utility functions for byte arrays
 
 extern bytes_equals
-extern nullbyte_equals
+extern nullterm_equals
+extern contains_seq
 
 section .data
 
 section .text
+
+contains_seq:
+    ret
 
 bytes_equals:
     dec     rdx             ; rdx is the length of the bytes to compare
@@ -24,7 +28,7 @@ return_false:
     mov     rax, 0
     ret
 
-nullbyte_equals:
+nullterm_equals:
     xor     rax, rax
     mov     cx, 10000
     repe cmpsb          ; Use the `repe` (repeat while equal) prefix with the `cmpsb` (compare byte) instruction.
