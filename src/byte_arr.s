@@ -8,11 +8,14 @@ section .data
 
 section .text
 
+; 
 contains_seq:
+
     ret
 
+; rdi is pointer to the byte array, rdx is the length
 bytes_equals:
-    dec     rdx             ; rdx is the length of the bytes to compare
+    dec     rdx             ; decrement 0 indexed
     lea     rbx, [rdi+rdx]  ; get the effective address to compare
     mov     bl, [rbx]       ; read the first byte at the address into bl
     
