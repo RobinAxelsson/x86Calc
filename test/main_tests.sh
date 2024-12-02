@@ -31,8 +31,8 @@ run_exit_test(){
 
 # wrong input expect fail
 # $? is return value for any function or command (exit status)
-run_exit_test "./output/main" 1
-run_exit_test "./output/main 1+1" 0
+run_exit_test "./output/x86Calc" 1
+run_exit_test "./output/x86Calc 1+1" 0
 
 #-------SUMMARY------
 echo "--------------------------"
