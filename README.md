@@ -1,15 +1,39 @@
-# x86_64 assembly and nasm
+# x86Calc - a CLI calculator
 
-## Prerequisites
+This project is for learning to build in assembly.
 
-OS: Linux Debian (I use Kali)
+## Setup
+
+- OS: Linux (I use Kali VM)
+- x86_64 CPU Architecture
+- nasm assembler
+- Debugger gdb
+- gef - gdb python plugin for better UI
+- Bash and C for Unit Tests
+- gcc for building C
+- Bash for build and run
+- VS Code
+- VS Code extensions
+    - x86 and x86_64 Assembly
+    - C/C++
+    - Excel viewer
+    - Hex Editor
 
 ```shell
-    # CPU Architecture x86_64
-    uname -m #returns x86_64
+    # Check your architecture
+    uname -m #should return x86_64 CPU Architecture
+```
+
+## Init
+
+```shell
+    #To initialize the project scripts run:
+    source ./init.sh
 ```
 
 ## References
+
+I have a lot of documentation in this repo to be able to keep track of all the assembly consraints and methods. They are in the /ref folder. The refs that does not fit in any document in the folder are documented in this readme.
 
 - [x86_64 intel manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf) saved in ref
 
@@ -18,14 +42,6 @@ OS: Linux Debian (I use Kali)
 - [ELF x86-64-ABI psABI](https://gitlab.com/x86-psABIs/x86-64-ABI)
 
 - linux syscalls: cat /usr/include/x86_64-linux-gnu/asm/unistd_64.h
-
-```shell
-
-# to search in pdf manual? WIP
-sudo apt update && sudo apt install poppler-utils
-pdftotext ./ref/325383-sdm-vol-2abcd.pdf - | grep "Keyword"
-
-```
 
 - [Syscalls table](https://filippo.io/linux-syscall-table/)
 
@@ -120,32 +136,18 @@ info functions
 
 ```
 
-### Stack tips
+### Stack tips and input args
 
 - The stack needs to be aligned with 16byte - in other words the address needs to end at 0 not 8. 0x00007fffffffde80
 
 - The stack holds the input arguments and the environment arguments:
     - number of input arguments
     - first argument ptr to string
-    - ...additional
     - null stack frame 2 bytes  after
     - environment variables
 
-0x00007fffffffde80│+0x0000: 0x0000000000000001   ← $rsp
-
-0x00007fffffffde88│+0x0008: 0x00007fffffffe1fd  →  "/home/kali/rax/x86-assembly/output/print-args"
-
-0x00007fffffffde90│+0x0010: 0x0000000000000000
-
-0x00007fffffffde98│+0x0018: 0x00007fffffffe22b  →  "SHELL=/usr/bin/zsh"
-
-0x00007fffffffdea0│+0x0020: 0x00007fffffffe23e  →  "SESSION_MANAGER=local/kali:@/tmp/.ICE-unix/870,uni[...]"
-
-0x00007fffffffdea8│+0x0028: 0x00007fffffffe28a  →  "WINDOWID=0"
-
-0x00007fffffffdeb0│+0x0030: 0x00007fffffffe295  →  "QT_ACCESSIBILITY=1"
-
-0x00007fffffffdeb8│+0x0038: 0x00007fffffffe2a8  →  "COLORTERM=truecolor"
-
 ## Returning value and calling conventions
 
+Linux x86_64 uses the System V ABI (application binary interface), this is important to follow so that the code is interopable with C. In eg in this project do we use C to run unit tests. For example compared to Windows where you put all the arguments on the stack, in System V you put them in the registers.
+
+/ref/abi-reg-system-calls.csv
