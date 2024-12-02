@@ -2,6 +2,7 @@ global get_arg_irdi_oraxptr_ordxl
 
 section .text
 
+; gets the argument att index rdi, outputs pointer rax and length rdx (should be null teminated right?)
 get_arg_irdi_oraxptr_ordxl:
     add     rdi, 1      ; allow args to be 0 indexed
     imul    rdi, 8

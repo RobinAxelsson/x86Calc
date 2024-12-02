@@ -1,31 +1,63 @@
 #!/bin/bash
 
-remove_file(){
-    if [ -f "$1" ]; then
-        rm "$1"
-    fi
-}
-
 mkdir -p output
 
-remove_file ./output/format.o
-remove_file ./output/format_tests
 
-nasm -f elf64 ./src/format.s -o ./output/format.o
-gcc ./test/format_tests.c ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
+format(){
+    nasm -f elf64 ./src/format.s -o ./output/format.o
+    gcc ./test/format_tests.c ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
 
-[ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
+    [ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
+}
 
-# remove_file ./output/equals.o
-# remove_file ./output/equals_tests
+equals(){
+    nasm -f elf64 ./src/equals.s -o ./output/equals.o
+    gcc ./test/equals_tests.c ./output/equals.o -no-pie -o ./output/equals_tests -z noexecstack
+    
+    [ "$1" == "-g" ] && gdb -q ./output/equals_tests || ./output/equals_tests
+}
 
-# nasm -f elf64 ./src/equals.s -o ./output/equals.o
-# gcc ./test/equals_tests.c ./output/equals.o -no-pie -o ./output/equals_tests -z noexecstack
-# ./output/equals_tests
+main(){
+    ./test/main_tests.sh
+}
 
-# disables warnings with -no-pie and -z noexecstack
-# /usr/bin/ld: warning: ./output/equals.o: missing .note.GNU-stack section implies executable stack
-# /usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
-# /usr/bin/ld: ./output/equals.o: warning: relocation in read-only section `.text'
-# /usr/bin/ld: warning: creating DT_TEXTREL in a PIE
+# run all tests
+if [ "$1" == "" ]; then
+    fail="0"
 
+    echo -------MAIN---------
+    main
+    [ "$?" != "0" ] && fail=1
+
+    echo
+    echo -------FORMAT-------
+    format
+    [ "$?" != "0" ] && fail=1
+
+    echo
+    echo -------EQUALS-------
+    equals 
+    [ "$?" != "0" ] && fail=1
+
+    echo
+    echo -------RESULT-------
+    if [ "$fail" == "1" ]; then
+        echo "FAILED"
+        exit 1
+    fi
+
+    echo "PASSED"
+    exit 0
+fi
+
+case "$1" in
+    format)
+        format $2
+        ;;
+    equals)
+        equals $2
+        ;;
+    main)
+        main
+        ;;
+esac

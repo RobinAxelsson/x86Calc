@@ -5,16 +5,12 @@
 #-------BUILD--------
 
 mkdir -p output
-nasm -f elf64 ./src/calc.s -o ./output/calc.o
-ld ./output/calc.o -o ./output/calc
+./scripts/build.sh
 
 #-----TEST-SETUP-----
 
 tests=0
 passed=0
-expression=""
-exp=111 # to avoid false positives
-res=999
 
 run_exit_test(){
     eval "$1" # test-expression
@@ -35,8 +31,8 @@ run_exit_test(){
 
 # wrong input expect fail
 # $? is return value for any function or command (exit status)
-run_exit_test "./output/calc" 1
-run_exit_test "./output/calc 1+1" 0
+run_exit_test "./output/main" 1
+run_exit_test "./output/main 1+1" 0
 
 #-------SUMMARY------
 echo "--------------------------"

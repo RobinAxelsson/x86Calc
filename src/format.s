@@ -37,7 +37,7 @@ decimal_parse:
     ret
 
 ; ------------------
-extend_decimal_rdi_numb_rsi_len_rdx_i:
+extend_decimal_rdi_numb_rsi_len_rdx_i: ; move digit to correct decimal position eg. 123 -> [1] gets multiplyed by 10
     xor     rax, rax
     sub     rsi, rdx
     dec     rsi
