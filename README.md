@@ -1,6 +1,6 @@
 # x86Calc - a CLI calculator
 
-This project is for learning to build in assembly.
+This project is for learning to build in assembly. Took a lot of TDD to make this work.
 
 ## Setup
 
