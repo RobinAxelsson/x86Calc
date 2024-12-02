@@ -10,11 +10,11 @@ format(){
     [ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
 }
 
-equals(){
-    nasm -f elf64 ./src/equals.s -o ./output/equals.o
-    gcc ./test/equals_tests.c ./output/equals.o -no-pie -o ./output/equals_tests -z noexecstack
+byte_arr(){
+    nasm -f elf64 ./src/byte_arr.s -o ./output/byte_arr
+    gcc ./test/byte_arr_tests.c ./output/byte_arr -no-pie -o ./output/byte_arr_tests -z noexecstack
     
-    [ "$1" == "-g" ] && gdb -q ./output/equals_tests || ./output/equals_tests
+    [ "$1" == "-g" ] && gdb -q ./output/byte_arr_tests || ./output/byte_arr_tests
 }
 
 main(){
@@ -36,7 +36,7 @@ if [ "$1" == "" ]; then
 
     echo
     echo -------EQUALS-------
-    equals 
+    byte_arr 
     [ "$?" != "0" ] && fail=1
 
     echo
@@ -54,8 +54,8 @@ case "$1" in
     format)
         format $2
         ;;
-    equals)
-        equals $2
+    byte_arr)
+        byte_arr $2
         ;;
     main)
         main

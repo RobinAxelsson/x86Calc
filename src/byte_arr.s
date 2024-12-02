@@ -1,31 +1,13 @@
-global equals
+global byte_arr ; Utility functions for byte arrays
 
-extern int_equals
-extern ref_equals
-extern deref_equals
-extern str_equals
+extern bytes_equals
+extern nullbyte_equals
 
 section .data
 
 section .text
 
-; just examples
-; input: qword rdi, qword rsi, qword rdx
-int_equals:
-    xor     rax, rax
-    cmp     esi, edi
-    sete    al
-    ret
-
-; just example
-ref_equals: ; qword 64 bit ptr
-    xor     rax, rax
-    cmp     rsi, rdi
-    sete    al
-    ret
-
-; input: pointer rdi, pointer rsi, length rdx
-deref_equals:
+bytes_equals:
     dec     rdx             ; rdx is the length of the bytes to compare
     lea     rbx, [rdi+rdx]  ; get the effective address to compare
     mov     bl, [rbx]       ; read the first byte at the address into bl
@@ -34,7 +16,7 @@ deref_equals:
     jne     return_false
 
     cmp     rdx, 0
-    jg      deref_equals    ; if rdx is 0 all bytes have been iterated through
+    jg      bytes_equals    ; if rdx is 0 all bytes have been iterated through
     mov     rax, 1
     ret
 
@@ -42,7 +24,7 @@ return_false:
     mov     rax, 0
     ret
 
-str_equals:
+nullbyte_equals:
     xor     rax, rax
     mov     cx, 10000
     repe cmpsb          ; Use the `repe` (repeat while equal) prefix with the `cmpsb` (compare byte) instruction.
