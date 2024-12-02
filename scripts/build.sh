@@ -13,7 +13,7 @@ nasm -f elf64 ./src/format.s -o ./output/format.o
 nasm -f elf64 ./src/syscall.s -o ./output/syscall.o
 
 #link
-ld ./output/main.o -o ./output/calc
+ld ./output/main.o -o ./output/x86Calc
 
 # ld ./output/main.o ./output/strings.o ./output/args.o -o ./output/main
 
