@@ -2,11 +2,9 @@
 #include <stdio.h>
 //main is at end of file for convinience
 
-//externs are written in x86 assembly
-extern int int_equals(int rdi, int rsi);
-extern int ref_equals(int* rdi, int* rsi);
 extern int bytes_equals(void* rdi, void* rsi, int rdx);
-extern int nullterm_equals(char* a, char* b);
+extern int str_equals(char* a, char* b);
+extern int str_contains(char*a, char*b);
 
 int passed = 0;
 int tests = 0;
@@ -17,7 +15,7 @@ char* apply_result(int boolean_result)
     char* fail = "";
 
     if(!boolean_result){
-        fail = " - FAILED";
+        fail = " <-------- FAILED";
     }
     else {
         passed++;
@@ -103,40 +101,52 @@ void bytes_equals_PtrPtrLong_0()
     printf("%d, bytes_equals_PtrPtrLong_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void nullterm_equals_HelloHello_1()
+void str_equals_HelloHello_1()
 {
     char* a = "Hello";
     char* b = "Hello";
 
-    int res = nullterm_equals(a, b);
+    int res = str_equals(a, b);
     char exp = 1;
     char *fail = apply_result(exp == res);
 
-    printf("%d, nullterm_equals_HelloHello_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_equals_HelloHello_1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void nullterm_equals_HelloHalla_0()
+void str_equals_HelloHalla_0()
 {
     char* a = "Hello";
     char* b = "Halla";
 
-    int res = nullterm_equals(a, b);
+    int res = str_equals(a, b);
     char exp = 0;
     char *fail = apply_result(exp == res);
 
-    printf("%d, nullterm_equals_HelloHalla_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_equals_HelloHalla_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void nullterm_equals_HelloMr_0()
+void str_equals_HelloMr_0()
 {
     char* a = "Hello mr";
     char* b = "Hello ";
 
-    int res = nullterm_equals(a, b);
+    int res = str_equals(a, b);
     char exp = 0;
     char *fail = apply_result(exp == res);
 
-    printf("%d, nullterm_equals_HelloMr_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_equals_HelloMr_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__test_t__1()
+{
+    char* a = "test";
+    char* b = "t";
+
+    int res = str_contains(a, b);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__test_t__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 int main() {
@@ -148,9 +158,11 @@ bytes_equals_PtrPtrInt_0();
 bytes_equals_PtrPtrLong_1();
 bytes_equals_PtrPtrLong_0();
 
-nullterm_equals_HelloHello_1();
-nullterm_equals_HelloHalla_0();
-nullterm_equals_HelloMr_0();
+str_equals_HelloHello_1();
+str_equals_HelloHalla_0();
+str_equals_HelloMr_0();
+
+str_contains__test_t__1();
 
 //Summary
     printf("---------------------------------------\n");

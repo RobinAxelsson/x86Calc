@@ -1,16 +1,16 @@
 global byte_arr ; Utility functions for byte arrays
 
 extern bytes_equals
-extern nullterm_equals
-extern contains_seq
+extern str_equals
+extern str_contains
 
 section .data
 
 section .text
 
 ; 
-contains_seq:
-
+str_contains:
+    ; iterate over strings with string operations, direction flag
     ret
 
 ; rdi is pointer to the byte array, rdx is the length
@@ -31,7 +31,7 @@ return_false:
     mov     rax, 0
     ret
 
-nullterm_equals:
+str_equals:
     xor     rax, rax
     mov     cx, 10000
     repe cmpsb          ; Use the `repe` (repeat while equal) prefix with the `cmpsb` (compare byte) instruction.
