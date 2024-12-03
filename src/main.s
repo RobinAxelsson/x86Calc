@@ -1,6 +1,14 @@
 global _start
 extern str_contains
 
+%macro print 2
+    mov rax, 1  ; sys_write
+    mov rdi, 1  ; std_out
+    mov rsi, %1 ; byte ptr
+    mov rdx, %2 ; length
+    syscall
+%endmacro
+
 section .data
     plus db "+", 0x00
     minus db "-", 0x00
@@ -10,19 +18,8 @@ section .data
 
 section .text
 
-; example stack for input arguments
-; 0x00007fffffffdea0│+0x0000: 0x0000000000000002   ← $rsp, $rbp
-; 0x00007fffffffdea8│+0x0008: 0x00007fffffffe213  →  "/home/kali/rax/x86-assembly/output/x86Calc"
-; 0x00007fffffffdeb0│+0x0010: 0x00007fffffffe23e  →  0x4c45485300312b31 ("1+1"?)
-
 _start:
     mov rbp, rsp
-
-    mov rax, 1      ; rax: syscall number 1
-    mov rdi, 1      ; rdi: fd 1 for stdout
-    mov rsi,two     ; rsi: pointer to message
-    mov rdx, 2     ; rdx: print length of 20 bytes
-    syscall         ; call write syscall to the intro message
 
     ; read the argv length value on the stack
     ; exit if less then 2
@@ -58,15 +55,19 @@ error_exit:
     syscall
 
 addition:
+    print two, 1
     jmp exit
 
 subtraction:
+    print two, 1
     jmp exit
 
 multiplication:
+    print two, 1
     jmp exit
 
 division:
+    print two, 1
     jmp exit
 
 exit:

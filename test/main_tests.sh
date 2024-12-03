@@ -38,9 +38,9 @@ run_output_test(){
     res=""
 
     if [ "gdb" == 1 ]; then
-        res=$(eval gdb -q --args "$1")
+        res=$(gdb -q --args ./output/x86Calc $1)
     else
-        res=$(eval "$1")
+        res=$("./output/x86Calc" "$1")
     fi
 
     exp="$2"
@@ -61,13 +61,12 @@ run_output_test(){
 # wrong input expect fail
 # $? is return value for any function or command (exit status)
 run_exit_test "./output/x86Calc" 1
-run_exit_test "./output/x86Calc 1+1" 0
 run_exit_test "./output/x86Calc 11" 1
-run_exit_test "./output/x86Calc 1-1" 0
-run_exit_test "./output/x86Calc 1*1" 0
-run_exit_test "./output/x86Calc 1/1" 0
 
-run_output_test "./output/x86Calc 1+1" 2
+run_output_test "1+1" 2
+run_output_test "1*2" 2
+run_output_test "3-1" 2
+run_output_test "6/3" 2
 
 #-------SUMMARY------
 echo "--------------------------"
