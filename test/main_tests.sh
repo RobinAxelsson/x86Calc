@@ -42,6 +42,8 @@ run_exit_test "./output/x86Calc" 1
 run_exit_test "./output/x86Calc 1+1" 0
 run_exit_test "./output/x86Calc 11" 1
 run_exit_test "./output/x86Calc 1-1" 0
+run_exit_test "./output/x86Calc 1*1" 0
+run_exit_test "./output/x86Calc 1/1" 0
 
 #-------SUMMARY------
 echo "--------------------------"
