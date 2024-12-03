@@ -11,9 +11,15 @@ mkdir -p output
 
 tests=0
 passed=0
+gdb=0
+
+if [ "$1" == "-g" ]; then
+    gdb=1
+fi
 
 run_exit_test(){
-    eval "$1" # test-expression
+    [ "gdb" == 1 ] && eval gdb -q --args "$1" || eval "$1" # test-expression
+    
     res="$?"
     exp="$2"
 
