@@ -8,9 +8,16 @@ section .data
 
 section .text
 
-; 
+; rdi nullterminated string source, rsi contain string
 str_contains:
     ; iterate over strings with string operations, direction flag
+    xor rbx, rbx
+    xor rax, rax
+
+    mov bl, [rdi] ;bl - rbx
+    cmp bl, [rsi]
+
+    sete al
     ret
 
 ; rdi is pointer to the byte array, rdx is the length

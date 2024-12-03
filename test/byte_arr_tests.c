@@ -137,16 +137,28 @@ void str_equals_HelloMr_0()
     printf("%d, str_equals_HelloMr_0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void str_contains__test_t__1()
+void str_contains__t_t__1()
 {
-    char* a = "test";
+    char* a = "t";
+    char* b = "t";
+
+    int res = str_contains(a, b);
+    char exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__t_t__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__a_t__0()
+{
+    char* a = "a";
     char* b = "t";
 
     int res = str_contains(a, b);
     char exp = 0;
     char *fail = apply_result(exp == res);
 
-    printf("%d, str_contains__test_t__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_contains__a_t__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 int main() {
@@ -162,7 +174,8 @@ str_equals_HelloHello_1();
 str_equals_HelloHalla_0();
 str_equals_HelloMr_0();
 
-str_contains__test_t__1();
+str_contains__t_t__1();
+str_contains__a_t__0();
 
 //Summary
     printf("---------------------------------------\n");
