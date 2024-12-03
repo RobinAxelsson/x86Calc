@@ -13,11 +13,21 @@ str_contains:
     ; iterate over strings with string operations, direction flag
     xor rbx, rbx
     xor rax, rax
+    mov rcx, -1
+    
+    loop_compare:
+    inc rcx
+    mov bl, [rdi+rcx] ;bl - rbx
+    or  bl, bl
+    jz  return_null_found
 
-    mov bl, [rdi] ;bl - rbx
     cmp bl, [rsi]
-
+    jne loop_compare
     sete al
+    ret
+
+    return_null_found:
+    mov rax, 0
     ret
 
 ; rdi is pointer to the byte array, rdx is the length

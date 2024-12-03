@@ -161,6 +161,54 @@ void str_contains__a_t__0()
     printf("%d, str_contains__a_t__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void str_contains__ba_b__1()
+{
+    char* a = "ba";
+    char* b = "b";
+
+    int res = str_contains(a, b);
+    char exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__ba_b__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__abc_b__1()
+{
+    char* a = "abc";
+    char* b = "b";
+
+    int res = str_contains(a, b);
+    char exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__abc_b__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__abc_d__0()
+{
+    char* a = "abc";
+    char* b = "d";
+
+    int res = str_contains(a, b);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__abc_d__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__abc_bd__0()
+{
+    char* a = "abc";
+    char* b = "bd";
+
+    int res = str_contains(a, b);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__abc_d__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 int main() {
 bytes_equals_PtrPtrChar_1();
 bytes_equals_PtrPtrShort_1();
@@ -176,6 +224,10 @@ str_equals_HelloMr_0();
 
 str_contains__t_t__1();
 str_contains__a_t__0();
+str_contains__ba_b__1();
+str_contains__abc_b__1();
+str_contains__abc_d__0();
+str_contains__abc_bd__0();
 
 //Summary
     printf("---------------------------------------\n");
