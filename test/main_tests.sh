@@ -12,20 +12,13 @@ mkdir -p output
 tests=0
 passed=0
 gdb=0
-debug_test=0
-i_test=1
 
-if [[ "$2" == "-g" ]]; then
+if [ "$1" == "-g" ]; then
     gdb=1
-    debug_test=$3
 fi
 
 run_exit_test(){
-    if [ "$gdb" == 1  ]; then
-        eval gdb -q --args "$1"
-    else
-        eval "$1"
-    fi
+    [ "gdb" == 1 ] && eval gdb -q --args "$1" || eval "$1" # test-expression
     
     res="$?"
     exp="$2"
@@ -38,16 +31,17 @@ run_exit_test(){
     fi
 
     echo "$1 res=$res exp=$exp $fail"
+    fail=""
 }
 
 #-------TESTS--------
 
 # wrong input expect fail
 # $? is return value for any function or command (exit status)
-
 run_exit_test "./output/x86Calc" 1
 run_exit_test "./output/x86Calc 1+1" 0
 run_exit_test "./output/x86Calc 11" 1
+run_exit_test "./output/x86Calc 1-1" 0
 
 #-------SUMMARY------
 echo "--------------------------"
