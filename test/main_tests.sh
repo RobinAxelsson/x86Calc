@@ -34,6 +34,28 @@ run_exit_test(){
     fail=""
 }
 
+run_output_test(){
+    res=""
+
+    if [ "gdb" == 1 ]; then
+        res=$(eval gdb -q --args "$1")
+    else
+        res=$(eval "$1")
+    fi
+
+    exp="$2"
+
+    ((tests++))
+    if [ "$exp" -eq "$res" ]; then
+        ((passed++))   # (()) is for aritmetics, no $ needed
+    else 
+        fail="<------ FAILED"
+    fi
+
+    echo "$1 res=$res exp=$exp $fail"
+    fail=""
+}
+
 #-------TESTS--------
 
 # wrong input expect fail
@@ -44,6 +66,8 @@ run_exit_test "./output/x86Calc 11" 1
 run_exit_test "./output/x86Calc 1-1" 0
 run_exit_test "./output/x86Calc 1*1" 0
 run_exit_test "./output/x86Calc 1/1" 0
+
+run_output_test "./output/x86Calc 1+1" 2
 
 #-------SUMMARY------
 echo "--------------------------"

@@ -6,6 +6,7 @@ section .data
     minus db "-", 0x00
     sign db "*", 0x00
     _div db "/", 0x00
+    two db "2", 0x00
 
 section .text
 
@@ -17,6 +18,12 @@ section .text
 _start:
     mov rbp, rsp
 
+    mov rax, 1      ; rax: syscall number 1
+    mov rdi, 1      ; rdi: fd 1 for stdout
+    mov rsi,two     ; rsi: pointer to message
+    mov rdx, 2     ; rdx: print length of 20 bytes
+    syscall         ; call write syscall to the intro message
+
     ; read the argv length value on the stack
     ; exit if less then 2
     mov rax, [rbp]
@@ -26,22 +33,22 @@ _start:
     mov rdi, [rbp+16] ; load the input argument in rdi
 
     mov rsi, plus
-    call str_contains ; rdi nullterminated string source, rsi containee-string
+    call str_contains
     cmp rax, 1
     je addition
 
     mov rsi, sign
-    call str_contains ; rdi nullterminated string source, rsi containee-string
+    call str_contains
     cmp rax, 1
     je multiplication
 
     mov rsi, minus
-    call str_contains ; rdi nullterminated string source, rsi containee-string
+    call str_contains
     cmp rax, 1
     je subtraction
 
     mov rsi, _div
-    call str_contains ; rdi nullterminated string source, rsi containee-string
+    call str_contains
     cmp rax, 1
     je division
 
