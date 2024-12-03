@@ -1,25 +1,25 @@
-8-bit High,8-bit Low,16-bit,32-bit,64-bit,128-bit,Type,Description,Saved by
-AH,AL,AX,EAX,RAX,,GPR,Accumulator register used in arithmetic operations,Caller
-BH,BL,BX,EBX,RBX,,GPR,Base register used in addressing,Caller
-CH,CL,CX,ECX,RCX,,GPR,Counter register for loops,Caller
-DH,DL,DX,EDX,RDX,,GPR,Data register used in I/O and arithmetic,Caller
-,SIL,SI,ESI,RSI,,GPR,Source index for string operations,Caller
-,DIL,DI,EDI,RDI,,GPR,Destination index for string operations,Caller
-,BPL,BP,EBP,RBP,,GPR,Base pointer for stack frame,Callee
-,SPL,SP,ESP,RSP,,GPR,Stack pointer,Callee
-,R8L,,R8D,R8,,GPR,Extended GPR,Caller
-,R9L,,R9D,R9,,GPR,Extended GPR,Caller
-,R10L,,R10D,R10,,GPR,Extended GPR,Caller
-,R11L,,R11D,R11,,GPR,Extended GPR,Caller
-,R12L,,R12D,R12,,GPR,Extended GPR,Callee
-,R13L,,R13D,R13,,GPR,Extended GPR,Callee
-,R14L,,R14D,R14,,GPR,Extended GPR,Callee
-,R15L,,R15D,R15,,GPR,Extended GPR,Callee
-,,,,XMM0,XMM0,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM1,XMM1,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM2,XMM2,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM3,XMM3,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM4,XMM4,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM5,XMM5,Vector,Used in floating-point and SIMD operations,Caller
-,,,,XMM6,XMM6,Vector,Used in floating-point and SIMD operations,Callee
-,,,,XMM7,XMM7,Vector,Used in floating-point and SIMD operations,Callee
+8-bit High,8-bit Low,16-bit,32-bit,64-bit,128-bit,Type,Description,Saved by,Argument
+AH,AL,AX,EAX,RAX,,GPR,Accumulator register used in arithmetic operations,Caller,Return Value
+BH,BL,BX,EBX,RBX,,GPR,Base register used in addressing,Caller,
+CH,CL,CX,ECX,RCX,,GPR,Counter register for loops,Caller,4th Argument
+DH,DL,DX,EDX,RDX,,GPR,Data register used in I/O and arithmetic,Caller,3rd Argument
+,SIL,SI,ESI,RSI,,GPR,Source index for string operations,Caller,2nd Argument
+,DIL,DI,EDI,RDI,,GPR,Destination index for string operations,Caller,1st argument
+,BPL,BP,EBP,RBP,,GPR,Base pointer for stack frame,Callee,
+,SPL,SP,ESP,RSP,,GPR,Stack pointer,Callee,
+,R8L,,R8D,R8,,GPR,Extended GPR,Caller,5th argument
+,R9L,,R9D,R9,,GPR,Extended GPR,Caller,6th argument
+,R10L,,R10D,R10,,GPR,Extended GPR,Caller,
+,R11L,,R11D,R11,,GPR,Extended GPR,Caller,
+,R12L,,R12D,R12,,GPR,Extended GPR,Callee,
+,R13L,,R13D,R13,,GPR,Extended GPR,Callee,
+,R14L,,R14D,R14,,GPR,Extended GPR,Callee,
+,R15L,,R15D,R15,,GPR,Extended GPR,Callee,
+,,,,XMM0,XMM0,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM1,XMM1,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM2,XMM2,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM3,XMM3,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM4,XMM4,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM5,XMM5,Vector,Used in floating-point and SIMD operations,Caller,
+,,,,XMM6,XMM6,Vector,Used in floating-point and SIMD operations,Callee,
+,,,,XMM7,XMM7,Vector,Used in floating-point and SIMD operations,Callee,
