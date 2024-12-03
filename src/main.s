@@ -12,7 +12,7 @@ extern str_contains
 section .data
     plus db "+", 0x00
     minus db "-", 0x00
-    sign db "*", 0x00
+    _mul db "*", 0x00
     _div db "/", 0x00
     two db "2", 0x00
 
@@ -34,7 +34,7 @@ _start:
     cmp rax, 1
     je addition
 
-    mov rsi, sign
+    mov rsi, _mul
     call str_contains
     cmp rax, 1
     je multiplication

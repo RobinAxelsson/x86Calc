@@ -67,6 +67,7 @@ run_output_test "1+1" 2
 run_output_test "1*2" 2
 run_output_test "3-1" 2
 run_output_test "6/3" 2
+run_output_test "1+2" 3
 
 #-------SUMMARY------
 echo "--------------------------"
