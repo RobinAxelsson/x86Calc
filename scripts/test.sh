@@ -18,7 +18,7 @@ byte_arr(){
 }
 
 main(){
-    ./test/main_tests.sh
+    ./test/main_tests.sh "$@"
 }
 
 # run all tests
@@ -58,6 +58,6 @@ case "$1" in
         byte_arr $2
         ;;
     main)
-        main
+        main "$@"
         ;;
 esac

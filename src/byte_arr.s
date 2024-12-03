@@ -8,8 +8,7 @@ section .data
 
 section .text
 
-; rdi nullterminated string source, rsi contains string
-str_contains:
+str_contains: ; rdi nullterminated string source, rsi contains string
     ; iterate over strings with string operations, direction flag
 
     ; check the length of contains string rsi and copy it to r8

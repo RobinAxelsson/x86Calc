@@ -13,9 +13,7 @@ nasm -f elf64 ./src/format.s -o ./output/format.o
 nasm -f elf64 ./src/syscall.s -o ./output/syscall.o
 
 #link
-ld ./output/main.o -o ./output/x86Calc
-
-# ld ./output/main.o ./output/strings.o ./output/args.o -o ./output/main
+ld ./output/main.o ./output/byte_arr ./output/args.o -o ./output/x86Calc
 
 # disables warnings with -no-pie and -z noexecstack
 # /usr/bin/ld: warning: ./output/byte_arr: missing .note.GNU-stack section implies executable stack
