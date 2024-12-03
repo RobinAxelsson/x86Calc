@@ -206,7 +206,43 @@ void str_contains__abc_bd__0()
     char exp = 0;
     char *fail = apply_result(exp == res);
 
-    printf("%d, str_contains__abc_d__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, str_contains__abc_bd__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__ab_abd__0()
+{
+    char* a = "ab";
+    char* b = "abd";
+
+    int res = str_contains(a, b);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__ab_abd__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__ab_null__0()
+{
+    char* a = "ab";
+    char* b = "";
+
+    int res = str_contains(a, b);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__ab_null__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void str_contains__superlong_99__1()
+{
+    char* a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567899";
+    char* b = "99";
+
+    int res = str_contains(a, b);
+    char exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_contains__superlong_99__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 int main() {
@@ -228,6 +264,9 @@ str_contains__ba_b__1();
 str_contains__abc_b__1();
 str_contains__abc_d__0();
 str_contains__abc_bd__0();
+str_contains__ab_abd__0();
+str_contains__ab_null__0();
+str_contains__superlong_99__1();
 
 //Summary
     printf("---------------------------------------\n");
