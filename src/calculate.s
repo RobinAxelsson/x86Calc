@@ -6,13 +6,34 @@ extern calculate_string
 calculate_string:
     xor rax, rax
 
-    ; get first digit
-    mov al, [rdi]
-    sub al, 0x30
+    ; iterate backwards and calculate number
+    ; get str length
+    ; call str_length
+    
+    mov rsi, rdi ; lods read from rsi
+    cld          ; clear direction flag
+iterate_bytes:
+    lodsb        ; load a byte into rax
+    sub rax, 0x30
+    mov rbx, rax 
 
-    ; get second digit
-    mov sil, [rdi+2]
-    sub sil, 0x30
+    lodsb
+    lodsb
+    sub rax, 0x30
 
-    add al, sil
+    add rax, rbx
     ret
+
+; input string rdi
+str_length:
+    mov     rcx, -1
+    
+    count_char:
+    inc     rcx
+    mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
+    cmp     al, 0x00         ; Check if it's the null terminator
+    jne     count_char       ; if only null digits are 0
+    mov     rax, rcx
+    ret
+
+; ------------------
