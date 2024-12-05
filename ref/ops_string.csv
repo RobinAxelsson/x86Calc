@@ -1,0 +1,9 @@
+Mnemonic,Description,Operands,Notes
+MOVS,"Move a string from source to destination","None (implicit use of ESI/RSI and EDI/RDI)",Operates on memory pointed by RSI and RDI, can operate on byte, word, or doubleword based on MOVSB, MOVSW, MOVSD.
+LODS,"Load a string element into accumulator","None (implicit use of ESI/RSI and AL/AX/EAX)",Loads memory at RSI into AL, AX, or EAX depending on LODSB, LODSW, LODSD.
+STOS,"Store a string element from accumulator to memory","None (implicit use of EDI/RDI and AL/AX/EAX)",Stores AL, AX, or EAX into memory at RDI depending on STOSB, STOSW, STOSD.
+SCAS,"Scan a string for a value","None (implicit use of EDI/RDI and AL/AX/EAX)",Compares memory at RDI to AL, AX, or EAX depending on SCASB, SCASW, SCASD.
+CMPS,"Compare two strings","None (implicit use of ESI/RSI and EDI/RDI)",Compares memory at RSI and RDI depending on CMPSB, CMPSW, CMPSD.
+REP,"Repeat the following instruction until RCX/ECX becomes 0","None","Used as a prefix to repeat string instructions like MOVS, LODS, STOS, etc."
+REPE/REPZ,"Repeat the following instruction while zero flag is set and RCX/ECX is not 0","None","Used for string scanning (e.g., with SCAS or CMPS)."
+REPNE/REPNZ,"Repeat the following instruction while zero flag is not set and RCX/ECX is not 0","None","Typically used for string scanning (e.g., SCAS or CMPS)."
