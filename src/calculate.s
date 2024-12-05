@@ -4,24 +4,35 @@ extern calculate_string
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:
+    _cs:
     xor rax, rax
-
+    xor rbx, rbx
     ; iterate backwards and calculate number
     ; get str length
-    ; call str_length
+    call str_length
+    mov r8, rax
     
     mov rsi, rdi ; lods read from rsi
     cld          ; clear direction flag
-iterate_bytes:
+
+    cmp r8, 4
+    jne single_digits
+    lodsb
+    sub  rax, 0x30
+    imul rax, 10
+    add  rbx, rax
+
+    single_digits:
     lodsb        ; load a byte into rax
     sub rax, 0x30
-    mov rbx, rax 
+    add rbx, rax 
 
     lodsb
     lodsb
-    sub rax, 0x30
+    sub  rax, 0x30
+    add rbx, rax
 
-    add rax, rbx
+    mov rax, rbx
     ret
 
 ; input string rdi
