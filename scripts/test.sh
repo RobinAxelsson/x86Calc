@@ -17,6 +17,13 @@ byte_arr(){
     [ "$1" == "-g" ] && gdb -q ./output/byte_arr_tests || ./output/byte_arr_tests
 }
 
+calculate(){
+    nasm -f elf64 ./src/calculate.s -o ./output/calculate
+    gcc ./test/calculate_tests.c ./output/calculate -no-pie -o ./output/calculate_tests -z noexecstack
+    
+    [ "$1" == "-g" ] && gdb -q ./output/calculate_tests || ./output/calculate_tests
+}
+
 main(){
     ./test/main_tests.sh "$@"
 }
@@ -40,6 +47,11 @@ if [ "$1" == "" ]; then
     [ "$?" != "0" ] && fail=1
 
     echo
+    echo ------CALCULATE-----
+    calculate 
+    [ "$?" != "0" ] && fail=1
+
+    echo
     echo -------RESULT-------
     if [ "$fail" == "1" ]; then
         echo "FAILED"
@@ -59,5 +71,8 @@ case "$1" in
         ;;
     main)
         main "$@"
+        ;;
+    calculate)
+        calculate $2
         ;;
 esac
