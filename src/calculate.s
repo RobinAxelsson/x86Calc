@@ -7,32 +7,28 @@ calculate_string:
     _cs:
     xor rax, rax
     xor rbx, rbx
-    ; iterate backwards and calculate number
-    ; get str length
+    xor rsi, rsi
+
     call str_length
     mov r8, rax
     
     mov rsi, rdi ; lods read from rsi
-    cld          ; clear direction flag
+    add rsi, r8
+    dec rsi
+    std          ; set direction flag
 
-    cmp r8, 4
-    jne single_digits
-    lodsb
-    sub  rax, 0x30
-    imul rax, 10
-    add  rbx, rax
-
-    single_digits:
     lodsb        ; load a byte into rax
     sub rax, 0x30
-    add rbx, rax 
+    add rbx, rax
+    
+    lodsb
+    lodsb        ; load a byte into rax
 
-    lodsb
-    lodsb
-    sub  rax, 0x30
+    sub rax, 0x30
     add rbx, rax
 
     mov rax, rbx
+    cld
     ret
 
 ; input string rdi
