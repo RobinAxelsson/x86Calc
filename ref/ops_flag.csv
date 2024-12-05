@@ -1,0 +1,12 @@
+Mnemonic,Description
+CLC,"Clear the carry flag, sets the carry flag (CF) to 0."
+STC,"Set the carry flag, sets the carry flag (CF) to 1."
+CMC,"Complement the carry flag, inverts the current state of the carry flag (CF)."
+CLD,"Clear the direction flag, sets the direction flag (DF) to 0, causing string operations to increment."
+STD,"Set the direction flag, sets the direction flag (DF) to 1, causing string operations to decrement."
+CLI,"Clear the interrupt flag, disables interrupts by setting the interrupt flag (IF) to 0."
+STI,"Set the interrupt flag, enables interrupts by setting the interrupt flag (IF) to 1."
+LAHF,"Load status flags into AH register, copies the low byte of the FLAGS register (SF, ZF, AF, PF, CF) into AH."
+SAHF,"Store AH register into status flags, restores the low byte of FLAGS (SF, ZF, AF, PF, CF) from AH."
+PUSHF,"Push the FLAGS register onto the stack, stores the current FLAGS register onto the stack."
+POPF,"Pop the FLAGS register from the stack, restores the FLAGS register from the top of the stack."
