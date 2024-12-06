@@ -1,39 +1,24 @@
-global prints_irsip_inrdxv
-global printn_irsip
+extern sys_print
+extern sys_exit
+extern sys_error_exit
 
 section .text
 
-prints_irsip_inrdxv:
-    push    rbp
-    mov     rax, 1
-    mov     rdi, 1
+; rdi = length, rsi = pointer
+sys_print:
+    mov rdx, rdi
+    ;mov rsi - the pointer
+    mov rax, 1  ; sys_write
+    mov rdi, 1  ; std_out
+    syscall
+    ret
+
+sys_exit:
+    mov     rax, 60
+    mov     rdi, 0
     syscall
 
-    cmp rax, 0
-    jl syscall_failed
-
-    pop rbp
-    ret
-
-printn_irsip:   ; prints a nullterminated string
-    push    rbp
-
-find_null_terminator:
-    mov     al, byte [rsi + rdx]  ; Load the byte at rsi + rdx
-    cmp     al, 0x00       ; Check if it's the null terminator
-    je      null_found     ; Jump if null terminator is found
-    inc     rdx            ; Otherwise, increment length counter
-    jmp     find_null_terminator
-
-null_found:
-    mov     rdx, rdx       ; Set rdx to the calculated length
-
-    call prints_irsip_inrdxv
-    pop     rbp
-    ret
-
-
-syscall_failed:
-    mov rax, 60       ; Exit
-    mov rdi, 1        ; Error code
+sys_error_exit:
+    mov     rax, 60
+    mov     rdi, 1
     syscall

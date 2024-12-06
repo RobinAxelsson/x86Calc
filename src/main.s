@@ -2,15 +2,9 @@ global _start
 extern str_contains
 extern calculate_string
 extern convert_number_to_string
-extern char
-
-%macro print 2
-    mov rax, 1  ; sys_write
-    mov rdi, 1  ; std_out
-    mov rsi, %1 ; byte ptr
-    mov rdx, %2 ; length
-    syscall
-%endmacro
+extern sys_print
+extern sys_exit
+extern sys_error_exit
 
 BUFFER_LEN equ 5
 
@@ -34,7 +28,7 @@ _start:
     ; exit if less then 2
     mov rax, [rbp]
     cmp rax, 2
-    jl error_exit
+    jl sys_error_exit
 
     mov rdi, [rbp+16] ; load the input argument in rdi
 
@@ -59,9 +53,7 @@ _start:
     je division
 
 error_exit:
-    mov     rax, 60
-    mov     rdi, 1
-    syscall
+    jmp sys_error_exit
 
 addition:
     call calculate_string
@@ -70,26 +62,25 @@ addition:
 to_text:
     call convert_number_to_string
 print_:
-    mov rdx, rax ; length
+    mov rdi, rax ; length
     mov rsi, result_buffer ; byte ptr
-    mov rax, 1  ; sys_write
-    mov rdi, 1  ; std_out
-    syscall
-    jmp exit
+    call sys_print
+    jmp sys_exit
 
 subtraction:
-    print two, 1
-    jmp exit
+    mov rdi, 1
+    mov rsi, two
+    call sys_print
+    jmp sys_exit
 
 multiplication:
-    print two, 1
-    jmp exit
+    mov rdi, 1
+    mov rsi, two
+    call sys_print
+    jmp sys_exit
 
 division:
-    print two, 1
-    jmp exit
-
-exit:
-    mov     rax, 60
-    mov     rdi, 0
-    syscall
+    mov rdi, 1
+    mov rsi, two
+    call sys_print
+    jmp sys_exit
