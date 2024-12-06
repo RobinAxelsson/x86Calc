@@ -13,7 +13,7 @@ tests=0
 passed=0
 gdb=0
 
-if [ "$1" == "-g" ]; then
+if [[ "$1" == "-g" || "$2" == "-g" ]]; then
     gdb=1
 fi
 
@@ -37,8 +37,9 @@ run_exit_test(){
 run_output_test(){
     res=""
 
-    if [ "gdb" == 1 ]; then
-        res=$(gdb -q --args ./output/x86Calc $1)
+    if [ "$gdb" == 1 ]; then
+        gdb -q --args ./output/x86Calc "$1"
+        exit 0
     else
         res=$("./output/x86Calc" "$1")
     fi
@@ -63,11 +64,14 @@ run_output_test(){
 #run_exit_test "./output/x86Calc" 1
 #run_exit_test "./output/x86Calc 11" 1
 
-run_output_test "1+1" 2
 run_output_test "1*2" 2
 run_output_test "3-1" 2
 run_output_test "6/3" 2
+
+run_output_test "1+1" 2
 run_output_test "1+2" 3
+run_output_test "13+6" 19
+run_output_test "1000+0" 1000
 
 #-------SUMMARY------
 echo "--------------------------"

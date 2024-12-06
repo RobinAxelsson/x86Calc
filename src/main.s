@@ -1,5 +1,8 @@
 global _start
 extern str_contains
+extern calculate_string
+extern char_parse_numb_rdi_number_rsi_ptr_raxlength
+extern char
 
 %macro print 2
     mov rax, 1  ; sys_write
@@ -9,12 +12,18 @@ extern str_contains
     syscall
 %endmacro
 
+BUFFER_LEN equ 5
+
 section .data
     plus db "+", 0x00
     minus db "-", 0x00
     _mul db "*", 0x00
     _div db "/", 0x00
     two db "2", 0x00
+
+
+section .bss ; uninitialized data
+    result_buffer resb BUFFER_LEN
 
 section .text
 
@@ -55,7 +64,12 @@ error_exit:
     syscall
 
 addition:
-    print two, 1
+    call calculate_string
+    mov rdi, rax
+    mov rsi, result_buffer
+    call char_parse_numb_rdi_number_rsi_ptr_raxlength
+
+    print result_buffer, BUFFER_LEN
     jmp exit
 
 subtraction:
