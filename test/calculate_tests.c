@@ -151,16 +151,6 @@ void calculate_string__3_times_2__6()
     printf("%d, calculate_string__3_times_2__6 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-void get_decimal_from_expression__1_0__1()
-{
-    char *input = "1";
-    long res = get_decimal_from_expression(input, 0);
-    long exp = 1;
-    char *fail = apply_result(exp == res);
-
-    printf("%d, get_decimal_from_expression__1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
-}
-
 void get_decimal_from_expression__1plus2_1__2()
 {
     char *input = "1+2";
@@ -171,15 +161,46 @@ void get_decimal_from_expression__1plus2_1__2()
     printf("%d, get_decimal_from_expression__1plus2_2__2 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-// void get_decimal_from_expression__2plus30_1__30()
-// {
-//     char *input = "2+30";
-//     long res = get_decimal_from_expression(input, 1);
-//     long exp = 30;
-//     char *fail = apply_result(exp == res);
+void get_decimal_from_expression__2plus30_1__30()
+{
+    char *input = "2+30";
+    long res = get_decimal_from_expression(input, 1);
+    long exp = 30;
+    char *fail = apply_result(exp == res);
 
-//     printf("%d, get_decimal_from_expression__2plus30_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
-// }
+    printf("%d, get_decimal_from_expression__2plus30_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_from_expression__13plus30_0__13()
+{
+    char *input = "13+30";
+    long res = get_decimal_from_expression(input, 0);
+    long exp = 13;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__13plus30_0__13 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_from_expression__21000plus3220_0__21000()
+{
+    char *input = "21000+3220";
+    long res = get_decimal_from_expression(input, 0);
+    long exp = 21000;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__21000minus3220_0__21000 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_with_offset__21000plus3220_0_4__21000()
+{
+    char *input = "21000+3220";
+    long res = get_decimal_with_offset(input, 0, 4);
+    long exp = 21000;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_with_offset__21000plus3220_0_4__21000 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 
 void get_decimal_with_offset__2plus30_2_3__30()
 {
@@ -190,6 +211,28 @@ void get_decimal_with_offset__2plus30_2_3__30()
 
     printf("%d, get_decimal_with_offset__2plus30_2_3__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
+
+
+void get_decimal_with_offset__2plus243_2_4__243()
+{
+    char *input = "2+243";
+    long res = get_decimal_with_offset(input, 2, 4);
+    long exp = 243;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_with_offset__2plus243_2_4__243 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_with_offset__98plus3_0_1__98()
+{
+    char *input = "98+3";
+    long res = get_decimal_with_offset(input, 0, 1);
+    long exp = 98;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_with_offset__98plus3_0_1__101 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 
 
 // notes:
@@ -219,11 +262,15 @@ int main()
 
     //--------
 
-    get_decimal_from_expression__1_0__1();
     get_decimal_from_expression__1plus2_1__2();
-    //get_decimal_from_expression__2plus30_1__30();
+    get_decimal_from_expression__2plus30_1__30();
+    get_decimal_from_expression__13plus30_0__13();
+    get_decimal_from_expression__21000plus3220_0__21000();
 
     get_decimal_with_offset__2plus30_2_3__30();
+    get_decimal_with_offset__2plus243_2_4__243();
+    get_decimal_with_offset__98plus3_0_1__98();
+    get_decimal_with_offset__21000plus3220_0_4__21000();
     printf("\n");
 
     printf("---------------------------------------\n");
