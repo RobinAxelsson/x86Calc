@@ -1,8 +1,7 @@
-global format
-extern char_parse_numb_rdi_number_rsi_ptr_raxlength
+extern convert_number_to_string
 extern str_length
 
-char_parse_numb_rdi_number_rsi_ptr_raxlength:
+convert_number_to_string:
     push    rbp
     mov     rbp, rsp
     xor     r8, r8      ; our negative number bool

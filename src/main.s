@@ -1,7 +1,7 @@
 global _start
 extern str_contains
 extern calculate_string
-extern char_parse_numb_rdi_number_rsi_ptr_raxlength
+extern convert_number_to_string
 extern char
 
 %macro print 2
@@ -68,7 +68,7 @@ addition:
     mov rdi, rax
     mov rsi, result_buffer
 to_text:
-    call char_parse_numb_rdi_number_rsi_ptr_raxlength
+    call convert_number_to_string
 print_:
     mov rdx, rax ; length
     mov rsi, result_buffer ; byte ptr
