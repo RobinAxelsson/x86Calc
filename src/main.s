@@ -13,7 +13,6 @@ section .data
     minus db "-", 0x00
     _mul db "*", 0x00
     _div db "/", 0x00
-    two db "2", 0x00
 
 
 section .bss ; uninitialized data
@@ -50,7 +49,8 @@ _start:
     mov rsi, _div
     call str_contains
     cmp rax, 1
-    je division
+    je calc
+
 
 error_exit:
     jmp sys_error_exit
@@ -59,28 +59,12 @@ calc:
     call calculate_string
     mov rdi, rax
     mov rsi, result_buffer
+    
 to_text:
     call convert_number_to_string
-print_:
+
+print:
     mov rdi, rax ; length
     mov rsi, result_buffer ; byte ptr
-    call sys_print
-    jmp sys_exit
-
-subtraction:
-    mov rdi, 1
-    mov rsi, two
-    call sys_print
-    jmp sys_exit
-
-multiplication:
-    mov rdi, 1
-    mov rsi, two
-    call sys_print
-    jmp sys_exit
-
-division:
-    mov rdi, 1
-    mov rsi, two
     call sys_print
     jmp sys_exit

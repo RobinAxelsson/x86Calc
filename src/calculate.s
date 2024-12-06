@@ -29,14 +29,14 @@ get_decimal_from_expression:
     mov rsi, rbx ; get start of second decimal
     mov rdx, rcx ; get end of second decimal
 
-    jmp ret_gdfm
+    jmp return_gdfe
 
     first_decimal:
     mov rsi, 0   ; get start of first decimal
     dec rbx
     mov rdx, rbx ; get end of first decimal
 
-    ret_gdfm:
+    return_gdfe:
     ;rdi pointer
     ;rsi offset start
     ;rdx offset end
@@ -116,7 +116,6 @@ get_decimal_with_offset:
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:
-_cs:
     xor rax, rax ; used with lodsb
     xor rsi, rsi ; lods read from rsi
     ; rdi is always pointer to expression in all functions below
@@ -147,6 +146,9 @@ _cs:
     cmp byte [rdi+rax], '*'
     je multiply
 
+    cmp byte [rdi+rax], '/'
+    je division
+
     addition:
     pop rbx ; second digit
     pop rax ; first digit
@@ -163,6 +165,15 @@ _cs:
     pop rbx ; second digit
     pop rax ; first digit
     imul rax, rbx
+    jmp return_cs
+
+    division:
+    pop rbx ; second digit
+    pop rax ; first digit
+
+    ; division: rax / rcx = rax + reminder rdx ; replace rcx to constant
+    xor     rdx, rdx    ; clear rdx, else gives floating point exception
+    idiv    rbx         ; rax = quotient, rdx = reminder, needs to be register
 
     return_cs:
     ret

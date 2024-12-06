@@ -171,6 +171,17 @@ void calculate_string__3_times_2__6()
     printf("%d, calculate_string__3_times_2__6 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void calculate_string__10_div_2__5()
+{
+    char *input = "10/2";
+    long res = calculate_string(input);
+    long exp = 5;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__10_div_2__5 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+
 void get_decimal_from_expression__1plus2_1__2()
 {
     char *input = "1+2";
@@ -301,6 +312,8 @@ int main()
     calculate_string__1000_minus_1__999();
 
     calculate_string__3_times_2__6();
+
+    calculate_string__10_div_2__5();
 
     printf("\n");
 

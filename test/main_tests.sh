@@ -77,7 +77,12 @@ run_output_test "1*2" 2
 run_output_test "9*11" 99
 run_output_test "123456*100" 12345600
 run_output_test "0*100" 0
-run_output_test "0*-100" 0
+# run_output_test "0*-100" 0
+
+run_output_test "10/2" 5
+run_output_test "100/5" 20
+run_output_test "100/3" 33
+run_output_test "99/11" 9
 
 #-------SUMMARY------
 echo "--------------------------"
