@@ -17,16 +17,47 @@ calculate_string:
     dec rsi
     std          ; set direction flag
 
-    lodsb        ; load a byte into rax
-    sub rax, 0x30
-    add rbx, rax
+    mov rcx, 0    ; loop i
     
-    lodsb
-    lodsb        ; load a byte into rax
+    load_byte:
+    lodsb         ; load a byte into rax
+    inc rcx
+    
+    check_byte:
+    ; if rax >= 0x30 (ascii digit)
+    cmp rax, 0x30
+    jge rax_digit
+    
+    rax_delimiter:
+    mov rcx, 0      ; zero out 10s place
+    jmp load_byte
 
-    sub rax, 0x30
+    rax_digit:
+    sub rax, 0x30 ; convert to digit
+
+    ; if rcx > 1 multiply else add_rax
+    cmp rcx, 1
+    je add_rax
+    
+    push rcx
+    multiply:
+    ; if 10s place is more then 1 multiply
+    imul rax, 10
+    dec rcx
+    cmp rcx, 1
+    jg multiply
+    pop rcx
+
+    add_rax:
     add rbx, rax
+    xor rax, rax
+    
+    ; if byte pointer is less then input string pointer return
+    compare_pointers:
+    cmp rsi, rdi
+    jge load_byte
 
+    return:
     mov rax, rbx
     cld
     ret
