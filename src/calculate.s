@@ -1,6 +1,66 @@
 global format
 extern str_length
 extern calculate_string
+extern get_decimal_from_expression
+extern get_decimal_with_offset
+
+get_decimal_from_expression:
+    cmp rsi, 0
+    je first_decimal
+
+    second_decimal:
+    mov rsi, 2
+
+    first_decimal:
+    call get_decimal_i
+
+    ret_:
+    ret
+
+get_second_decimal_start:
+    mov rcx, -1
+    load_next_char:
+    lodsb   ; get char into rax
+    inc rcx
+
+    ; if rax != digit return
+    cmp rax, 0x30
+    jge load_next_char
+
+    ; get first digit after
+    inc rcx
+    mov rax, rcx
+    ret
+
+get_second_decimal_end:
+    call str_length
+    dec rax
+    ret
+
+get_decimal_with_offset:
+gdwo:
+    xor rbx, rbx
+    ;rdi pointer
+    ;rsi offset start
+    ;rdx offset end
+
+    first_digit:
+    call get_decimal_i
+    imul rax, 10
+    add rbx, rax
+    
+    second_digit:
+    mov rsi, rdx
+    call get_decimal_i
+    add rax, rbx
+    ret
+
+get_decimal_i: ; address rdi, index rsi
+    xor     rax, rax
+    mov     al, [rdi+rsi]
+    sub     al, 0x30        ; convert from ascii to decimal
+    movsx   rax, al
+    ret
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:

@@ -1,25 +1,28 @@
-//strings_tests.c
+// strings_tests.c
 #include <stdio.h>
 #include <string.h>
-//main is at end of file for convinience
+// main is at end of file for convinience
 
-//externs are written in x86 assembly
-extern long calculate_string(char* string);
-
+// externs are written in x86 assembly
+extern long calculate_string(char *string);
+extern long get_decimal_from_expression(char *expression, long index);
+extern long get_decimal_with_offset(char *expression, long start, long end); //inclusive
 int passed = 0;
 int tests = 0;
 
 //--------------Test helpers------------------
 
-char* apply_result(int boolean_result)
+char *apply_result(int boolean_result)
 {
     tests++;
-    char* fail = "";
+    char *fail = "";
 
-    if(!boolean_result){
+    if (!boolean_result)
+    {
         fail = "<------ FAILED";
     }
-    else {
+    else
+    {
         passed++;
     }
 
@@ -30,7 +33,7 @@ char* apply_result(int boolean_result)
 
 void calculate_string__1_plus_1__2()
 {
-    char* input = "1+1";
+    char *input = "1+1";
     long res = calculate_string(input);
     long exp = 2;
     char *fail = apply_result(exp == res);
@@ -40,7 +43,7 @@ void calculate_string__1_plus_1__2()
 
 void calculate_string__1_plus_2__3()
 {
-    char* input = "1+2";
+    char *input = "1+2";
     long res = calculate_string(input);
     long exp = 3;
     char *fail = apply_result(exp == res);
@@ -50,7 +53,7 @@ void calculate_string__1_plus_2__3()
 
 void calculate_string__12_plus_2__14()
 {
-    char* input = "12+2";
+    char *input = "12+2";
     long res = calculate_string(input);
     long exp = 14;
     char *fail = apply_result(exp == res);
@@ -60,9 +63,9 @@ void calculate_string__12_plus_2__14()
 
 void calculate_string__13_plus_21__34()
 {
-    char* input = "13+21";
+    char *input = "13+21";
     long res = calculate_string(input);
-    long exp = 13+21;
+    long exp = 13 + 21;
     char *fail = apply_result(exp == res);
 
     printf("%d, calculate_string__13_plus_21__34 - expected: %d result: %d %s\n", tests, exp, res, fail);
@@ -70,7 +73,7 @@ void calculate_string__13_plus_21__34()
 
 void calculate_string__10_plus_1__11()
 {
-    char* input = "10+1";
+    char *input = "10+1";
     long res = calculate_string(input);
     long exp = 11;
     char *fail = apply_result(exp == res);
@@ -80,7 +83,7 @@ void calculate_string__10_plus_1__11()
 
 void calculate_string__200_plus_1__201()
 {
-    char* input = "200+1";
+    char *input = "200+1";
     long res = calculate_string(input);
     long exp = 201;
     char *fail = apply_result(exp == res);
@@ -88,10 +91,9 @@ void calculate_string__200_plus_1__201()
     printf("%d, calculate_string__200_plus_1__201 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
-
 void calculate_string__0_plus_1000__1000()
 {
-    char* input = "0+1000";
+    char *input = "0+1000";
     long res = calculate_string(input);
     long exp = 1000;
     char *fail = apply_result(exp == res);
@@ -101,7 +103,7 @@ void calculate_string__0_plus_1000__1000()
 
 void calculate_string__2_minus_1__1()
 {
-    char* input = "2-1";
+    char *input = "2-1";
     long res = calculate_string(input);
     long exp = 1;
     char *fail = apply_result(exp == res);
@@ -111,7 +113,7 @@ void calculate_string__2_minus_1__1()
 
 void calculate_string__2_minus_3__neg1()
 {
-    char* input = "2-3";
+    char *input = "2-3";
     long res = calculate_string(input);
     long exp = -1;
     char *fail = apply_result(exp == res);
@@ -121,7 +123,7 @@ void calculate_string__2_minus_3__neg1()
 
 void calculate_string__2_minus_10__neg8()
 {
-    char* input = "2-10";
+    char *input = "2-10";
     long res = calculate_string(input);
     long exp = -8;
     char *fail = apply_result(exp == res);
@@ -131,7 +133,7 @@ void calculate_string__2_minus_10__neg8()
 
 void calculate_string__1000_minus_1__999()
 {
-    char* input = "1000-1";
+    char *input = "1000-1";
     long res = calculate_string(input);
     long exp = 999;
     char *fail = apply_result(exp == res);
@@ -141,24 +143,64 @@ void calculate_string__1000_minus_1__999()
 
 void calculate_string__3_times_2__6()
 {
-    char* input = "3*2";
+    char *input = "3*2";
     long res = calculate_string(input);
     long exp = 999;
     char *fail = apply_result(exp == res);
 
-    printf("%d, calculate_string__1000_minus_1__999 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, calculate_string__3_times_2__6 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_from_expression__1_0__1()
+{
+    char *input = "1";
+    long res = get_decimal_from_expression(input, 0);
+    long exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void get_decimal_from_expression__1plus2_1__2()
+{
+    char *input = "1+2";
+    long res = get_decimal_from_expression(input, 1);
+    long exp = 2;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__1plus2_2__2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+// void get_decimal_from_expression__2plus30_1__30()
+// {
+//     char *input = "2+30";
+//     long res = get_decimal_from_expression(input, 1);
+//     long exp = 30;
+//     char *fail = apply_result(exp == res);
+
+//     printf("%d, get_decimal_from_expression__2plus30_1__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
+// }
+
+void get_decimal_with_offset__2plus30_2_3__30()
+{
+    char *input = "2+30";
+    long res = get_decimal_with_offset(input, 2, 3);
+    long exp = 30;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_with_offset__2plus30_2_3__30 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 
-//notes:
-//null terminator is implicit in C
-//char res[5] creates read and writeable memory
-//char *res = "0" gives only readable memory
-//strcmp: stops at first /0, 0 means equal
+// notes:
+// null terminator is implicit in C
+// char res[5] creates read and writeable memory
+// char *res = "0" gives only readable memory
+// strcmp: stops at first /0, 0 means equal
 
 //------------------------------------------
 
-int main() 
+int main()
 {
     calculate_string__1_plus_1__2();
     calculate_string__1_plus_2__3();
@@ -173,13 +215,22 @@ int main()
     calculate_string__2_minus_10__neg8();
     calculate_string__1000_minus_1__999();
 
+    //calculate_string__3_times_2__6();
+
+    //--------
+
+    get_decimal_from_expression__1_0__1();
+    get_decimal_from_expression__1plus2_1__2();
+    //get_decimal_from_expression__2plus30_1__30();
+
+    get_decimal_with_offset__2plus30_2_3__30();
     printf("\n");
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);
 
-    if(passed == tests)
+    if (passed == tests)
         return 0;
-    
+
     return 1;
 }
