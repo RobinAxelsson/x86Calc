@@ -48,7 +48,27 @@ void calculate_string__1_plus_2__3()
     long exp = 3;
     char *fail = apply_result(exp == res);
 
-    printf("%d, calculate_string__1_plus_1__2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, calculate_string__1_plus_2__3 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__1_plus_0__1()
+{
+    char *input = "1+0";
+    long res = calculate_string(input);
+    long exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__1_plus_0__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__0_plus_1__1()
+{
+    char *input = "0+1";
+    long res = calculate_string(input);
+    long exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__0_plus_1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 void calculate_string__12_plus_2__14()
@@ -191,6 +211,16 @@ void get_decimal_from_expression__21000plus3220_0__21000()
     printf("%d, get_decimal_from_expression__21000minus3220_0__21000 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void get_decimal_from_expression__0plus1000_1__1000()
+{
+    char *input = "0+1000";
+    long res = get_decimal_from_expression(input, 1);
+    long exp = 1000;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__0plus1000_1__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 void get_decimal_with_offset__21000plus3220_0_4__21000()
 {
     char *input = "21000+3220";
@@ -233,6 +263,16 @@ void get_decimal_with_offset__98plus3_0_1__98()
     printf("%d, get_decimal_with_offset__98plus3_0_1__101 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void get_decimal_with_offset__0plus1000_2_5__1000()
+{
+    char *input = "0+1000";
+    long res = get_decimal_with_offset(input, 2, 5);
+    long exp = 1000;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_with_offset__0plus1000_2_5__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 
 
 // notes:
@@ -247,6 +287,8 @@ int main()
 {
     calculate_string__1_plus_1__2();
     calculate_string__1_plus_2__3();
+    calculate_string__1_plus_0__1();
+    calculate_string__0_plus_1__1();
     calculate_string__12_plus_2__14();
     calculate_string__13_plus_21__34();
     calculate_string__10_plus_1__11();
@@ -258,7 +300,7 @@ int main()
     calculate_string__2_minus_10__neg8();
     calculate_string__1000_minus_1__999();
 
-    //calculate_string__3_times_2__6();
+    calculate_string__3_times_2__6();
 
     //--------
 
@@ -266,11 +308,13 @@ int main()
     get_decimal_from_expression__2plus30_1__30();
     get_decimal_from_expression__13plus30_0__13();
     get_decimal_from_expression__21000plus3220_0__21000();
+    get_decimal_from_expression__0plus1000_1__1000();
 
     get_decimal_with_offset__2plus30_2_3__30();
     get_decimal_with_offset__2plus243_2_4__243();
     get_decimal_with_offset__98plus3_0_1__98();
     get_decimal_with_offset__21000plus3220_0_4__21000();
+    get_decimal_with_offset__0plus1000_2_5__1000();
     printf("\n");
 
     printf("---------------------------------------\n");

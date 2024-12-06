@@ -13,7 +13,7 @@ get_decimal_from_expression:
 
     push rsi
     ; rdi is pointer to expression
-    call index_get_delimiter
+    call index_delimiter
     mov rbx, rax
 
     ; rdi is pointer to expression
@@ -25,18 +25,18 @@ get_decimal_from_expression:
     je first_decimal
 
     second_decimal:
-    inc rbx
+    inc rbx      ; +1 to get first after delimiter index
     mov rsi, rbx ; get start of second decimal
     mov rdx, rcx ; get end of second decimal
 
-    jmp _ret
+    jmp ret_gdfm
 
     first_decimal:
     mov rsi, 0   ; get start of first decimal
     dec rbx
     mov rdx, rbx ; get end of first decimal
 
-    _ret:
+    ret_gdfm:
     ;rdi pointer
     ;rsi offset start
     ;rdx offset end
@@ -44,7 +44,7 @@ get_decimal_from_expression:
     ret
 
 ; input rdi pointer
-index_get_delimiter:
+index_delimiter:
     mov rcx, -1
     mov rsi, rdi
     load_next_char:
@@ -52,7 +52,7 @@ index_get_delimiter:
     inc rcx
 
     ; if rax != digit return
-    cmp rax, 0x30
+    cmp al, 0x30
     jge load_next_char
 
     ; get first digit after
@@ -68,7 +68,6 @@ index_last_digit:
 ;rsi offset start
 ;rdx offset end
 get_decimal_with_offset:
-_d2:
     xor rax, rax
     xor rbx, rbx ; used to sum
     lea r8, [rdi+rsi] ; start pointer
@@ -82,7 +81,7 @@ _d2:
     ; return if load pointer is equal to start pointer
     is_pointers_equal:
     cmp rsi, r8
-    jl _return
+    jl return_gdwo
 
     _load_byte:
     lodsb         ; load a byte into rax from rsi pointer and decrements rsi
@@ -110,87 +109,51 @@ _d2:
     inc rcx
     jmp convert_decimal
 
-    _return:
+    return_gdwo:
     mov rax, rbx
     cld
     ret
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:
+_cs:
     xor rax, rax ; used with lodsb
-    xor rbx, rbx ; sum output
     xor rsi, rsi ; lods read from rsi
+    ; rdi is always pointer to expression in all functions below
 
-    call str_length
-    mov r8, rax
+    ; calculate the first number, index 0
+    ; rdi is pointer to expression
+    ; rsi is the number index eg 10+22, 10 rsi=0, 22 rsi=1 
     
-    mov rsi, rdi
-    add rsi, r8
-    dec rsi
-    std          ; set direction flag
+    get_decimal_0:
+    mov rsi, 0
+    call get_decimal_from_expression
+    push rax
 
-    mov rcx, 0    ; loop i
+    get_decimal_1:
+    mov rsi, 1
+    call get_decimal_from_expression
+    push rax
+
+    check_delimiter:
+    call index_delimiter
     
-    load_byte:
-    lodsb         ; load a byte into rax
-    inc rcx
-    
-    check_byte:
-    ; if rax >= 0x30 (ascii digit)
-    cmp rax, 0x30
-    jge rax_digit
-    
-    rax_delimiter:
-    mov rcx, 0      ; zero out 10s place
-    cmp rax, '-'
-    jne positive_number
+    cmp byte [rdi+rax], '+'
+    je _addition
 
-    negative_number:
-    neg rbx
+    cmp byte [rdi+rax], '-'
+    je _subtraction
 
-    positive_number:
-    jmp load_byte
+    _addition:
+    pop rbx ; second digit
+    pop rax ; first digit
+    add rax, rbx
+    jmp return_cs
 
-    rax_digit:
-    sub rax, 0x30 ; convert to digit
+    _subtraction:
+    pop rbx ; second digit
+    pop rax ; first digit
+    sub rax, rbx
 
-    ; if rcx > 1 multiply else add_rax
-    cmp rcx, 1
-    je add_rax
-    
-    push rcx
-    multiply:
-    ; if 10s place is more then 1 multiply
-    imul rax, 10
-    dec rcx
-    cmp rcx, 1
-    jg multiply
-    pop rcx
-
-    add_rax:
-    add rbx, rax
-    xor rax, rax
-    
-    ; if byte pointer is less then input string pointer return
-    compare_pointers:
-    cmp rsi, rdi
-    jge load_byte
-
-    return:
-    mov rax, rbx
-    cld
+    return_cs:
     ret
-
-; input string rdi
-; str_length:
-;     mov     rcx, -1
-    
-;     count_char:
-;     inc     rcx
-;     mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
-;     cmp     al, 0x00         ; Check if it's the null terminator
-;     jne     count_char       ; if only null digits are 0
-;     mov     rax, rcx
-;     ret
-
-; ------------------

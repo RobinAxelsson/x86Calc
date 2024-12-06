@@ -84,6 +84,7 @@ echo source ~/.gdbinit-gef.py >> ~/.gdbinit
 b _start
 b *_start+6
 b *_start+9 if $rbx > 10
+b *_cs if $rdi = "0+1000"
 
 disas <label> #gives address of the label
 b *0x40100a
