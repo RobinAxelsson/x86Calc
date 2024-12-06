@@ -88,6 +88,17 @@ void calculate_string__200_plus_1__201()
     printf("%d, calculate_string__200_plus_1__201 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+
+void calculate_string__0_plus_1000__1000()
+{
+    char* input = "0+1000";
+    long res = calculate_string(input);
+    long exp = 1000;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__0_plus_1000__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 //notes:
 //null terminator is implicit in C
 //char res[5] creates read and writeable memory
@@ -104,6 +115,7 @@ int main()
     calculate_string__13_plus_21__34();
     calculate_string__10_plus_1__11();
     calculate_string__200_plus_1__201();
+    calculate_string__0_plus_1000__1000();
 
     printf("\n");
 
