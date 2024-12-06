@@ -4,7 +4,7 @@
 //main is at end of file for convinience
 
 //externs are written in x86 assembly
-extern void char_parse_numb_rdi_number_rsi_ptr_raxlength(long number, char* dest);
+extern long char_parse_numb_rdi_number_rsi_ptr_raxlength(long number, char* dest);
 
 int passed = 0;
 int tests = 0;
@@ -111,6 +111,16 @@ void char_parse_numb_rdi_number_rsi_ptr_raxlength__check_null__null_exists(){
     printf("%d, char_parse_numb_rdi_number_rsi_ptr_raxlength__neg1__equal - expected: %s result: %s %s\n", tests, exp[1], res[1], fail);
 }
 
+void char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2(){
+    char buffer[5];
+
+    long res = char_parse_numb_rdi_number_rsi_ptr_raxlength(1, buffer);
+    long exp = 2;
+
+    char *fail = apply_result(res == exp);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 //------------------------------------------
 
 int main() 
@@ -123,6 +133,10 @@ int main()
     char_parse_numb_rdi_number_rsi_ptr_raxlength__0__equal();
     char_parse_numb_rdi_number_rsi_ptr_raxlength__check_null__null_exists();
     char_parse_numb_rdi_number_rsi_ptr_raxlength__neg1__equal();
+
+    printf("\n");
+    //length tests
+    char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);

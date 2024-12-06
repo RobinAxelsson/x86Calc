@@ -4,7 +4,6 @@ extern calculate_string
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:
-    _cs:
     xor rax, rax
     xor rbx, rbx
     xor rsi, rsi

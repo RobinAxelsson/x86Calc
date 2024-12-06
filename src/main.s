@@ -67,9 +67,14 @@ addition:
     call calculate_string
     mov rdi, rax
     mov rsi, result_buffer
+to_text:
     call char_parse_numb_rdi_number_rsi_ptr_raxlength
-
-    print result_buffer, BUFFER_LEN
+print_:
+    mov rdx, rax ; length
+    mov rsi, result_buffer ; byte ptr
+    mov rax, 1  ; sys_write
+    mov rdi, 1  ; std_out
+    syscall
     jmp exit
 
 subtraction:
