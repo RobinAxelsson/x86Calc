@@ -1,7 +1,6 @@
-global byte_arr ; Utility functions for byte arrays
-
-extern bytes_equals
+extern span_equals
 extern str_equals
+extern str_length
 extern str_contains
 
 section .data
@@ -58,11 +57,10 @@ str_length:
     jne     count_char       ; if only null digits are 0
     mov     rax, rcx
     ret
-
 ;--------------------
 
 ; rdi is pointer to the byte array, rdx is the length
-bytes_equals:
+span_equals:
     dec     rdx             ; decrement 0 indexed
     lea     rbx, [rdi+rdx]  ; get the effective address to compare
     mov     bl, [rbx]       ; read the first byte at the address into bl
@@ -71,7 +69,7 @@ bytes_equals:
     jne     return_false
 
     cmp     rdx, 0
-    jg      bytes_equals    ; if rdx is 0 all bytes have been iterated through
+    jg      span_equals    ; if rdx is 0 all bytes have been iterated through
     mov     rax, 1
     ret
 

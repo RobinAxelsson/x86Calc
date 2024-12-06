@@ -1,5 +1,5 @@
 global format
-
+extern str_length
 extern calculate_string
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
@@ -62,15 +62,15 @@ calculate_string:
     ret
 
 ; input string rdi
-str_length:
-    mov     rcx, -1
+; str_length:
+;     mov     rcx, -1
     
-    count_char:
-    inc     rcx
-    mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
-    cmp     al, 0x00         ; Check if it's the null terminator
-    jne     count_char       ; if only null digits are 0
-    mov     rax, rcx
-    ret
+;     count_char:
+;     inc     rcx
+;     mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
+;     cmp     al, 0x00         ; Check if it's the null terminator
+;     jne     count_char       ; if only null digits are 0
+;     mov     rax, rcx
+;     ret
 
 ; ------------------

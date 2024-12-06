@@ -1,5 +1,6 @@
 global format
 extern char_parse_numb_rdi_number_rsi_ptr_raxlength
+extern str_length
 
 char_parse_numb_rdi_number_rsi_ptr_raxlength:
     push    rbp
@@ -50,18 +51,4 @@ char_parse_numb_rdi_number_rsi_ptr_raxlength:
     mov     rdi, rsi
     call    str_length
     pop     rbp
-    ret
-
-;--------------------------------
-
-; input string rdi, do not count the null char
-str_length:
-    mov     rcx, -1
-    
-    count_char:
-    inc     rcx
-    mov     al, [rdi + rcx]  ; Load the byte at rsi + rcx
-    cmp     al, 0x00         ; Check if it's the null terminator
-    jne     count_char       ; if only null digits are 0
-    mov     rax, rcx
     ret

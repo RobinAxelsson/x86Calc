@@ -1,4 +1,4 @@
-//byte_arr_tests.c
+//strings_tests.c
 #include <stdio.h>
 #include <string.h>
 //main is at end of file for convinience

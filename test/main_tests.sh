@@ -1,11 +1,7 @@
 #!/bin/bash
 
 # prefer to send it to std out (echo)
-
-#-------BUILD--------
-
-mkdir -p output
-./scripts/build.sh
+# build in test.sh
 
 #-----TEST-SETUP-----
 

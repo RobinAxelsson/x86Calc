@@ -1,4 +1,4 @@
-//byte_arr_tests.c
+//strings_tests.c
 #include <stdio.h>
 #include <string.h>
 //main is at end of file for convinience
@@ -111,14 +111,14 @@ void char_parse_numb_rdi_number_rsi_ptr_raxlength__check_null__null_exists(){
     printf("%d, char_parse_numb_rdi_number_rsi_ptr_raxlength__neg1__equal - expected: %s result: %s %s\n", tests, exp[1], res[1], fail);
 }
 
-void char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2(){
+void char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len1(){
     char buffer[5];
 
     long res = char_parse_numb_rdi_number_rsi_ptr_raxlength(1, buffer);
-    long exp = 2;
+    long exp = 1;
 
     char *fail = apply_result(res == exp);
-    printf("%d, char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+    printf("%d, char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len1 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 //------------------------------------------
@@ -136,7 +136,7 @@ int main()
 
     printf("\n");
     //length tests
-    char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len2();
+    char_parse_numb_rdi_number_rsi_ptr_raxlength__1__len1();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);

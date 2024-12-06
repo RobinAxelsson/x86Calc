@@ -1,26 +1,21 @@
 #!/bin/bash
 
 mkdir -p output
+./scripts/build.sh
 
+strings(){
+    gcc ./test/strings_tests.c ./output/strings.o -no-pie -o ./output/strings_tests -z noexecstack
+    [ "$1" == "-g" ] && gdb -q ./output/strings_tests || ./output/strings_tests
+}
 
 format(){
-    nasm -f elf64 ./src/format.s -o ./output/format.o
-    gcc ./test/format_tests.c ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
-
+    gcc ./test/format_tests.c ./output/strings.o ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
     [ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
 }
 
-byte_arr(){
-    nasm -f elf64 ./src/byte_arr.s -o ./output/byte_arr
-    gcc ./test/byte_arr_tests.c ./output/byte_arr -no-pie -o ./output/byte_arr_tests -z noexecstack
-    
-    [ "$1" == "-g" ] && gdb -q ./output/byte_arr_tests || ./output/byte_arr_tests
-}
 
 calculate(){
-    nasm -f elf64 ./src/calculate.s -o ./output/calculate
-    gcc ./test/calculate_tests.c ./output/calculate -no-pie -o ./output/calculate_tests -z noexecstack
-    
+    gcc ./test/calculate_tests.c ./output/strings.o ./output/calculate.o -no-pie -o ./output/calculate_tests -z noexecstack
     [ "$1" == "-g" ] && gdb -q ./output/calculate_tests || ./output/calculate_tests
 }
 
@@ -43,7 +38,7 @@ if [ "$1" == "" ]; then
 
     echo
     echo -------EQUALS-------
-    byte_arr 
+    strings 
     [ "$?" != "0" ] && fail=1
 
     echo
@@ -66,8 +61,8 @@ case "$1" in
     format)
         format $2
         ;;
-    byte_arr)
-        byte_arr $2
+    strings)
+        strings $2
         ;;
     main)
         main "$@"
