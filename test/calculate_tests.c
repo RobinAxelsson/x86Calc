@@ -99,6 +99,57 @@ void calculate_string__0_plus_1000__1000()
     printf("%d, calculate_string__0_plus_1000__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void calculate_string__2_minus_1__1()
+{
+    char* input = "2-1";
+    long res = calculate_string(input);
+    long exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__2_minus_1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__2_minus_3__neg1()
+{
+    char* input = "2-3";
+    long res = calculate_string(input);
+    long exp = -1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__2_minus_3__neg1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__2_minus_10__neg8()
+{
+    char* input = "2-10";
+    long res = calculate_string(input);
+    long exp = -8;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__2_minus_10__neg8 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__1000_minus_1__999()
+{
+    char* input = "1000-1";
+    long res = calculate_string(input);
+    long exp = 999;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__1000_minus_1__999 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void calculate_string__3_times_2__6()
+{
+    char* input = "3*2";
+    long res = calculate_string(input);
+    long exp = 999;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, calculate_string__1000_minus_1__999 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+
 //notes:
 //null terminator is implicit in C
 //char res[5] creates read and writeable memory
@@ -116,6 +167,11 @@ int main()
     calculate_string__10_plus_1__11();
     calculate_string__200_plus_1__201();
     calculate_string__0_plus_1000__1000();
+
+    calculate_string__2_minus_1__1();
+    calculate_string__2_minus_3__neg1();
+    calculate_string__2_minus_10__neg8();
+    calculate_string__1000_minus_1__999();
 
     printf("\n");
 

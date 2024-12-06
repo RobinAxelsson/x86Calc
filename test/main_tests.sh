@@ -61,13 +61,18 @@ run_exit_test "./output/x86Calc" "1"
 run_exit_test "./output/x86Calc 11" "1"
 
 run_output_test "1*2" 2
-run_output_test "3-1" 2
 run_output_test "6/3" 2
 
 run_output_test "1+1" 2
 run_output_test "1+2" 3
 run_output_test "13+6" 19
 run_output_test "1000+0" 1000
+
+run_output_test "1-1" 0
+run_output_test "3-1" 2
+run_output_test "10-1" 9
+run_output_test "1-10" "-9"
+run_output_test "10-15" "-5"
 
 #-------SUMMARY------
 echo "--------------------------"

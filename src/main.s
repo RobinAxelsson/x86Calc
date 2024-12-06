@@ -35,7 +35,7 @@ _start:
     mov rsi, plus
     call str_contains
     cmp rax, 1
-    je addition
+    je calc
 
     mov rsi, _mul
     call str_contains
@@ -45,7 +45,7 @@ _start:
     mov rsi, minus
     call str_contains
     cmp rax, 1
-    je subtraction
+    je calc
 
     mov rsi, _div
     call str_contains
@@ -55,7 +55,7 @@ _start:
 error_exit:
     jmp sys_error_exit
 
-addition:
+calc:
     call calculate_string
     mov rdi, rax
     mov rsi, result_buffer

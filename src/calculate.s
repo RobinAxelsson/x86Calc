@@ -4,14 +4,14 @@ extern calculate_string
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
 calculate_string:
-    xor rax, rax
-    xor rbx, rbx
-    xor rsi, rsi
+    xor rax, rax ; used with lodsb
+    xor rbx, rbx ; sum output
+    xor rsi, rsi ; lods read from rsi
 
     call str_length
     mov r8, rax
     
-    mov rsi, rdi ; lods read from rsi
+    mov rsi, rdi
     add rsi, r8
     dec rsi
     std          ; set direction flag
@@ -29,6 +29,13 @@ calculate_string:
     
     rax_delimiter:
     mov rcx, 0      ; zero out 10s place
+    cmp rax, '-'
+    jne positive_number
+
+    negative_number:
+    neg rbx
+
+    positive_number:
     jmp load_byte
 
     rax_digit:
