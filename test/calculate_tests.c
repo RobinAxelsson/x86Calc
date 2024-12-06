@@ -165,7 +165,7 @@ void calculate_string__3_times_2__6()
 {
     char *input = "3*2";
     long res = calculate_string(input);
-    long exp = 999;
+    long exp = 6;
     char *fail = apply_result(exp == res);
 
     printf("%d, calculate_string__3_times_2__6 - expected: %d result: %d %s\n", tests, exp, res, fail);
@@ -302,13 +302,15 @@ int main()
 
     calculate_string__3_times_2__6();
 
-    //--------
+    printf("\n");
 
     get_decimal_from_expression__1plus2_1__2();
     get_decimal_from_expression__2plus30_1__30();
     get_decimal_from_expression__13plus30_0__13();
     get_decimal_from_expression__21000plus3220_0__21000();
     get_decimal_from_expression__0plus1000_1__1000();
+
+    printf("\n");
 
     get_decimal_with_offset__2plus30_2_3__30();
     get_decimal_with_offset__2plus243_2_4__243();

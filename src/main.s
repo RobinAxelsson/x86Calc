@@ -40,7 +40,7 @@ _start:
     mov rsi, _mul
     call str_contains
     cmp rax, 1
-    je multiplication
+    je calc
 
     mov rsi, minus
     call str_contains

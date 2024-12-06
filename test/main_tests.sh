@@ -60,7 +60,6 @@ run_output_test(){
 run_exit_test "./output/x86Calc" "1"
 run_exit_test "./output/x86Calc 11" "1"
 
-run_output_test "1*2" 2
 run_output_test "6/3" 2
 
 run_output_test "1+1" 2
@@ -73,6 +72,12 @@ run_output_test "3-1" 2
 run_output_test "10-1" 9
 run_output_test "1-10" "-9"
 run_output_test "10-15" "-5"
+
+run_output_test "1*2" 2
+run_output_test "9*11" 99
+run_output_test "123456*100" 12345600
+run_output_test "0*100" 0
+run_output_test "0*-100" 0
 
 #-------SUMMARY------
 echo "--------------------------"

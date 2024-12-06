@@ -139,21 +139,30 @@ _cs:
     call index_delimiter
     
     cmp byte [rdi+rax], '+'
-    je _addition
+    je addition
 
     cmp byte [rdi+rax], '-'
-    je _subtraction
+    je subtraction
 
-    _addition:
+    cmp byte [rdi+rax], '*'
+    je multiply
+
+    addition:
     pop rbx ; second digit
     pop rax ; first digit
     add rax, rbx
     jmp return_cs
 
-    _subtraction:
+    subtraction:
     pop rbx ; second digit
     pop rax ; first digit
     sub rax, rbx
+    jmp return_cs
+
+    multiply:
+    pop rbx ; second digit
+    pop rax ; first digit
+    imul rax, rbx
 
     return_cs:
     ret
