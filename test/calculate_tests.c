@@ -7,6 +7,7 @@
 extern long calculate_string(char *string);
 extern long get_decimal_from_expression(char *expression, long index);
 extern long get_decimal_with_offset(char *expression, long start, long end); //inclusive
+extern long get_number_ptr_len_from_expression(char *expression, long i, char **string); //non nullterminated
 int passed = 0;
 int tests = 0;
 
@@ -284,6 +285,29 @@ void get_decimal_with_offset__0plus1000_2_5__1000()
     printf("%d, get_decimal_with_offset__0plus1000_2_5__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void get_number_ptr_len_from_expression__1plus2_0_ptr__LENeq1()
+{
+    char *inputPtr = "1+2";
+    char* resPtr;
+    long resLen = get_number_ptr_len_from_expression(inputPtr, 0, &resPtr);
+    long expLen = 1;
+    
+    char *fail = apply_result(expLen == resLen);
+    printf("%d, get_number_ptr_len_from_expression__1plus2_0_ptr__LENeq1 - expected: %d result: %d %s\n", tests, expLen, resLen, fail);
+}
+
+void get_number_ptr_len_from_expression__1plus2_0_ptr__PTRsEqual()
+{
+    char *inputPtr = "1+2";
+    char *resPtr = NULL; //initialize to avoid potential undefined behaviour
+    long resLen = get_number_ptr_len_from_expression(inputPtr, 0, &resPtr);
+    long expLen = 1;
+    
+    char *fail = apply_result(inputPtr == resPtr);
+    printf("%d, get_number_ptr_len_from_expression__1plus2_0_ptr__PTRsEqual - expected: %p result: %p %s\n", tests, inputPtr, resPtr, fail);
+
+}
+
 
 
 // notes:
@@ -331,6 +355,9 @@ int main()
     get_decimal_with_offset__21000plus3220_0_4__21000();
     get_decimal_with_offset__0plus1000_2_5__1000();
     printf("\n");
+
+    get_number_ptr_len_from_expression__1plus2_0_ptr__LENeq1();
+    get_number_ptr_len_from_expression__1plus2_0_ptr__PTRsEqual();
 
     printf("---------------------------------------\n");
     printf("\n%d/%d tests passed!\n", passed, tests);

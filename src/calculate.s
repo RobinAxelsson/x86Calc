@@ -3,6 +3,7 @@ extern str_length
 extern calculate_string
 extern get_decimal_from_expression
 extern get_decimal_with_offset
+extern get_number_ptr_len_from_expression
 
 get_decimal_from_expression:
     ; rdi is pointer to expression
@@ -112,6 +113,13 @@ get_decimal_with_offset:
     return_gdwo:
     mov rax, rbx
     cld
+    ret
+
+; gets pointer to an indexed number in an expression like 22+25
+get_number_ptr_len_from_expression:
+_db:
+    mov rax, 1
+    mov [rdx], rdi
     ret
 
 ; input rdi - null terminated string pointer to text calculation eg. 1+1
