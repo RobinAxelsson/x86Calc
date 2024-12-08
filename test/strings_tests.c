@@ -354,6 +354,15 @@ void str_len__hello__5(){
     printf("%d, str_len__hello__5 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void str_len__empty__0(){
+    char* a = "";
+    int res = str_length(a);
+    char exp = 0;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, str_len__empty__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 int main() {    
 span_equals_PtrPtrChar_1();
 span_equals_PtrPtrShort_1();
@@ -381,6 +390,7 @@ str_contains__superlong_99__1();
 printf("\n");
 
 str_len__hello__5();
+str_len__empty__0();
 printf("\n");
 
  convert_number_to_string__1_2__1null();
