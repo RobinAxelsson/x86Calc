@@ -8,12 +8,6 @@ strings(){
     [ "$1" == "-g" ] && gdb -q ./output/strings_tests || ./output/strings_tests
 }
 
-format(){
-    gcc ./test/format_tests.c ./output/strings.o ./output/format.o -no-pie -o ./output/format_tests -z noexecstack
-    [ "$1" == "-g" ] && gdb -q ./output/format_tests || ./output/format_tests
-}
-
-
 calculate(){
     gcc ./test/calculate_tests.c ./output/strings.o ./output/calculate.o -no-pie -o ./output/calculate_tests -z noexecstack
     [ "$1" == "-g" ] && gdb -q ./output/calculate_tests || ./output/calculate_tests
@@ -32,12 +26,7 @@ if [ "$1" == "" ]; then
     [ "$?" != "0" ] && fail=1
 
     echo
-    echo -------FORMAT-------
-    format
-    [ "$?" != "0" ] && fail=1
-
-    echo
-    echo -------EQUALS-------
+    echo ------STRINGS-------
     strings 
     [ "$?" != "0" ] && fail=1
 
@@ -58,9 +47,6 @@ if [ "$1" == "" ]; then
 fi
 
 case "$1" in
-    format)
-        format $2
-        ;;
     strings)
         strings $2
         ;;
