@@ -11,7 +11,7 @@ This project is for learning to build in assembly. Took a lot of TDD to make thi
 
     #you can run test command or ./scripts/test.sh
 
-┌──(kali㉿kali)-[~/rax/x86-assembly]
+┌──(kali㉿kali)-[~/x86-assembly]
 └─$ test
 -------MAIN---------
 #exit code test
