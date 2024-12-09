@@ -120,19 +120,25 @@ calculate_string:
     xor rsi, rsi ; lods read from rsi
     ; rdi is always pointer to expression in all functions below
 
-    ; calculate the first number, index 0
+    mov r8, 2 ; set how many times to iterate
+    xor rcx, rcx ; counter
+
+    push_decimals: ; iterates 2 times over the expression  
+    cmp rcx, r8
+    je check_delimiter
+
+    push rcx
+    push r8
+    mov rsi, rcx
     ; rdi is pointer to expression
     ; rsi is the number index eg 10+22, 10 rsi=0, 22 rsi=1 
+    call get_decimal_from_expression
+    pop r8
+    pop rcx
+    push rax
     
-    get_decimal_0:
-    mov rsi, 0
-    call get_decimal_from_expression
-    push rax
-
-    get_decimal_1:
-    mov rsi, 1
-    call get_decimal_from_expression
-    push rax
+    inc rcx
+    jmp push_decimals
 
     check_delimiter:
     call index_delimiter
