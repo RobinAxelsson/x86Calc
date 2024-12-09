@@ -36,12 +36,12 @@ char* apply_result(int boolean_result)
 
 void convert_number_to_string__1_2__1null(){
     
-    // char res[5];
-    // convert_number_to_string(1, res);
-    // char* exp = "1";
-    // int str_equal = strcmp(res, exp) == 0;
-    // char *fail = apply_result(str_equal);
-    // printf("%d, convert_number_to_string__1_2__1null - expected: %s result: %s %s\n", tests, exp, res, fail);
+    char res[5];
+    convert_number_to_string(1, res);
+    char* exp = "1";
+    int str_equal = strcmp(res, exp) == 0;
+    char *fail = apply_result(str_equal);
+    printf("%d, convert_number_to_string__1_2__1null - expected: %s result: %s %s\n", tests, exp, res, fail);
 }
 
 void convert_number_to_string__1__not_equal_2(){
@@ -393,7 +393,7 @@ str_len__hello__5();
 str_len__empty__0();
 printf("\n");
 
- convert_number_to_string__1_2__1null();
+convert_number_to_string__1_2__1null();
 convert_number_to_string__1__not_equal_2();
 convert_number_to_string__9__equal();
 convert_number_to_string__69__equal();
