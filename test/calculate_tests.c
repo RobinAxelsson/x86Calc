@@ -1,12 +1,7 @@
-// strings_tests.c
 #include <stdio.h>
 #include <string.h>
-// main is at end of file for convinience
+#include "../src/calculate.h"
 
-// externs are written in x86 assembly
-extern long calculate_string(char *string);
-extern long get_decimal_from_expression(char *expression, long index);
-extern long get_decimal_with_offset(char *expression, long start, long end); //inclusive
 int passed = 0;
 int tests = 0;
 

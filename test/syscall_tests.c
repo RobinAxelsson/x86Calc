@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-extern int sys_read_file(const char* filepath, char* buffer, int bytes_to_read);
+#include "../src/syscall.h"
 
 int passed = 0;
 int tests = 0;
