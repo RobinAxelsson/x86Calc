@@ -60,7 +60,9 @@ str_length:
     ret
 ;--------------------
 
-; rdi is pointer to the byte array, rdx is the length
+; rdi: ptr to byte array a,
+; rsi: ptr to byte array b, 
+; rdx: length
 span_equals:
     dec     rdx             ; decrement 0 indexed
     lea     rbx, [rdi+rdx]  ; get the effective address to compare

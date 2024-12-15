@@ -1,13 +1,10 @@
 //strings_tests.c
 #include <stdio.h>
 #include <string.h>
+#include "../src/strings.h"
 //main is at end of file for convinience
 
-extern int span_equals(void* rdi, void* rsi, int rdx);
-extern int str_equals(char* a, char* b);
-extern int str_contains(char*a, char*b);
-extern int str_length(char*a);
-extern long convert_number_to_string(long number, char* dest);
+//extern int span_equals(void* rdi, void* rsi, int rdx);
 
 int passed = 0;
 int tests = 0;
