@@ -17,6 +17,11 @@ main(){
     ./test/main_tests.sh "$@"
 }
 
+syscall(){
+    gcc ./test/syscall_tests.c ./output/syscall.o -no-pie -o ./output/syscall_tests -z noexecstack
+    [ "$1" == "-g" ] && gdb -q ./output/syscall_tests || ./output/syscall_tests
+}
+
 # run all tests
 if [ "$1" == "" ]; then
     fail="0"
@@ -33,6 +38,11 @@ if [ "$1" == "" ]; then
     echo
     echo ------CALCULATE-----
     calculate 
+    [ "$?" != "0" ] && fail=1
+
+    echo
+    echo ------SYSCALL-----
+    syscall 
     [ "$?" != "0" ] && fail=1
 
     echo
@@ -55,5 +65,8 @@ case "$1" in
         ;;
     calculate)
         calculate $2
+        ;;
+    syscall)
+        syscall $2
         ;;
 esac

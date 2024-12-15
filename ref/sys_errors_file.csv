@@ -1,0 +1,32 @@
+Syscall,Error Code,Error Name,Description
+open,-13,EACCES,Permission denied
+open,-17,EEXIST,File already exists
+open,-14,EFAULT,Bad address
+open,-21,EISDIR,Is a directory
+open,-2,ENOENT,No such file or directory
+open,-20,ENOTDIR,Not a directory
+open,-22,EINVAL,Invalid argument
+open,-23,ENFILE,Too many files open in the system
+open,-24,EMFILE,Too many open files
+open,-30,EROFS,Read-only file system
+open,-36,ENAMETOOLONG,File name too long
+open,-40,ELOOP,Too many symbolic links
+open,-19,ENODEV,No such device
+open,-12,ENOMEM,Out of memory
+read,-9,EBADF,Bad file descriptor
+read,-14,EFAULT,Bad address
+read,-22,EINVAL,Invalid argument
+read,-21,EISDIR,Is a directory
+read,-5,EIO,Input/output error
+read,-11,EAGAIN,Resource temporarily unavailable (e.g., non-blocking I/O)
+read,-4,EINTR,System call interrupted by a signal
+read,-110,ETIMEDOUT,Operation timed out
+write,-9,EBADF,Bad file descriptor
+write,-14,EFAULT,Bad address
+write,-22,EINVAL,Invalid argument
+write,-28,ENOSPC,No space left on device
+write,-30,EROFS,Read-only file system
+write,-5,EIO,Input/output error
+write,-11,EAGAIN,Resource temporarily unavailable (e.g., non-blocking I/O)
+write,-4,EINTR,System call interrupted by a signal
+write,-32,EPIPE,Broken pipe (writing to a closed pipe or socket)
