@@ -227,6 +227,16 @@ void get_decimal_from_expression__0plus1000_1__1000()
     printf("%d, get_decimal_from_expression__0plus1000_1__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void get_decimal_from_expression__0plus10plus33_2__33()
+{
+    char *input = "0+10+33";
+    long res = get_decimal_from_expression(input, 2);
+    long exp = 33;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, get_decimal_from_expression__0plus10plus33_2__33 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
 void get_decimal_with_offset__21000plus3220_0_4__21000()
 {
     char *input = "21000+3220";
@@ -297,7 +307,27 @@ void count_expressions__1plus1__1()
     char *fail = apply_result(exp == res);
 
     printf("%d, count_expressions__1plus1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
 
+void count_expressions__1plus2plus3__2()
+{
+    char *input = "1+2+3";
+    long res = count_expressions(input);
+    long exp = 2;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, count_expressions__1plus2plus3__2 - expected: %d result: %d %s\n", tests, exp, res, fail);
+
+}
+
+void count_expressions__1plus2plus3plus4__3()
+{
+    char *input = "1+2+3+4";
+    long res = count_expressions(input);
+    long exp = 3;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, count_expressions__1plus2plus3plus4__3 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
 // notes:
@@ -314,6 +344,8 @@ int main()
     printf("\n");
     count_expressions__1plus1__1();
     count_expressions__empty__0();
+    count_expressions__1plus2plus3__2();
+    count_expressions__1plus2plus3plus4__3();
 
     calculate_string__1_plus_1__2();
     calculate_string__1_plus_2__3();
@@ -341,6 +373,7 @@ int main()
     get_decimal_from_expression__13plus30_0__13();
     get_decimal_from_expression__21000plus3220_0__21000();
     get_decimal_from_expression__0plus1000_1__1000();
+    get_decimal_from_expression__0plus10plus33_2__33();
 
     printf("\n");
 

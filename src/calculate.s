@@ -19,7 +19,7 @@ get_decimal_from_expression:
     call index_delimiter
     mov rbx, rax
 
-    ; rdi is pointer to expression
+    ; rdi is pointer to expression;
     ; rsi index of delimiter
     mov rsi, 1
     call index_delimiter
@@ -54,13 +54,12 @@ count_expressions:
     xor rcx, rcx
     xor rax, rax
 
-    cmp byte [rdi], 0x0 ; check if empty string, null
-    je end_of_string
-
+    mov rsi, rdi
     load_next:
     lodsb       ; load char into rax
+
     cmp al, 0x0 ; char is null
-    jle end_of_string
+    je end_of_string
 
     cmp al, 0x30
     jl is_delimiter
@@ -73,6 +72,7 @@ count_expressions:
     jmp load_next
     
     end_of_string:
+    xor rax, rax
     mov rax, rcx
     ret
 
