@@ -279,7 +279,26 @@ void get_decimal_with_offset__0plus1000_2_5__1000()
     printf("%d, get_decimal_with_offset__0plus1000_2_5__1000 - expected: %d result: %d %s\n", tests, exp, res, fail);
 }
 
+void count_expressions__empty__0()
+{
+    char *input = "";
+    long res = count_expressions(input);
+    long exp = 0;
+    char *fail = apply_result(exp == res);
 
+    printf("%d, count_expressions__empty__0 - expected: %d result: %d %s\n", tests, exp, res, fail);
+}
+
+void count_expressions__1plus1__1()
+{
+    char *input = "1+1";
+    long res = count_expressions(input);
+    long exp = 1;
+    char *fail = apply_result(exp == res);
+
+    printf("%d, count_expressions__1plus1__1 - expected: %d result: %d %s\n", tests, exp, res, fail);
+
+}
 
 // notes:
 // null terminator is implicit in C
@@ -291,6 +310,11 @@ void get_decimal_with_offset__0plus1000_2_5__1000()
 
 int main()
 {
+
+    printf("\n");
+    count_expressions__1plus1__1();
+    count_expressions__empty__0();
+
     calculate_string__1_plus_1__2();
     calculate_string__1_plus_2__3();
     calculate_string__1_plus_0__1();

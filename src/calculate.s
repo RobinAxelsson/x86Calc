@@ -3,6 +3,7 @@ extern str_length
 extern calculate_string
 extern get_decimal_from_expression
 extern get_decimal_with_offset
+extern count_expressions
 
 get_decimal_from_expression:
     ; rdi is pointer to expression
@@ -13,11 +14,16 @@ get_decimal_from_expression:
 
     push rsi
     ; rdi is pointer to expression
+    ; rsi is index
+    mov rsi, 0
     call index_delimiter
     mov rbx, rax
 
     ; rdi is pointer to expression
-    call index_last_digit
+    ; rsi index of delimiter
+    mov rsi, 1
+    call index_delimiter
+    dec rax
     mov rcx, rax
 
     pop rsi
@@ -43,8 +49,37 @@ get_decimal_from_expression:
     call get_decimal_with_offset
     ret
 
+count_expressions:
+    ; rdi pointer to expression
+    xor rcx, rcx
+    xor rax, rax
+
+    cmp byte [rdi], 0x0 ; check if empty string, null
+    je end_of_string
+
+    load_next:
+    lodsb       ; load char into rax
+    cmp al, 0x0 ; char is null
+    jle end_of_string
+
+    cmp al, 0x30
+    jl is_delimiter
+
+    is_digit:
+    jmp load_next
+
+    is_delimiter:
+    inc rcx
+    jmp load_next
+    
+    end_of_string:
+    mov rax, rcx
+    ret
+
 ; input rdi pointer
+; input rsi index
 index_delimiter:
+    mov r8, rsi ; which number
     mov rcx, -1
     mov rsi, rdi
     load_next_char:
@@ -55,7 +90,12 @@ index_delimiter:
     cmp al, 0x30
     jge load_next_char
 
-    ; get first digit after
+    is_delmimiter:
+    dec r8
+    cmp r8, -1
+    jg load_next_char
+
+    ; get first char after
     mov rax, rcx
     ret
 
@@ -135,12 +175,15 @@ calculate_string:
     call get_decimal_from_expression
     pop r8
     pop rcx
-    push rax
+    push rax ; push the resulting decimal on the stack
     
     inc rcx
     jmp push_decimals
 
     check_delimiter:
+    ; rsi is index
+    ; rdi is char*
+    mov rsi, 0
     call index_delimiter
     
     cmp byte [rdi+rax], '+'
