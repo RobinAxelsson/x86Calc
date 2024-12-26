@@ -99,11 +99,6 @@ index_delimiter:
     mov rax, rcx
     ret
 
-index_last_digit:
-    call str_length
-    dec rax
-    ret
-
 ;rdi pointer
 ;rsi offset start
 ;rdx offset end
